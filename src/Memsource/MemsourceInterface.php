@@ -2,9 +2,16 @@
 
 namespace Memsource;
 
+use Memsource\API\Async\v2\Job\Parameters;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 interface MemsourceInterface {
+
+  /**
+   * @param $parameters Parameters Job parameters.
+   * @return JsonResponse
+   */
+  public function createJob(Parameters $parameters);
 
   /**
    * @param $userName string User name.

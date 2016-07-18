@@ -5,6 +5,8 @@ namespace Memsource;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\RequestOptions;
+use Memsource\API\Async\v2\Job\Job;
+use Memsource\API\Async\v2\Job\Parameters;
 use Memsource\API\v3\Auth\Auth;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -19,10 +21,22 @@ class Memsource implements MemsourceInterface {
   /** @var Client */
   private $client;
 
+  /** @var Job */
+  private $job;
+
   public function __construct($baseUrl) {
     $this->auth = $this->getAuth();
     $this->baseUrl = $baseUrl;
     $this->client = $this->getClient();
+    $this->job = $this->getJob();
+  }
+
+  /**
+   * @param $parameters Parameters Job parameters.
+   * @return JsonResponse
+   */
+  public function createJob(Parameters $parameters) {
+    $this->job;
   }
 
   /**
@@ -83,5 +97,9 @@ class Memsource implements MemsourceInterface {
     $config = ['base_uri' => $this->baseUrl];
 
     return new Client($config);
+  }
+
+  protected function getJob() {
+    return new Job($this);
   }
 }
