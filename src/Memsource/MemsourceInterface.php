@@ -2,7 +2,7 @@
 
 namespace Memsource;
 
-use Memsource\API\Async\v2\Job\Parameters;
+use Memsource\Model\Parameters;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 interface MemsourceInterface {

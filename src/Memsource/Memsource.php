@@ -5,9 +5,10 @@ namespace Memsource;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\RequestOptions;
-use Memsource\API\Async\v2\Job\Job;
-use Memsource\API\Async\v2\Job\Parameters;
 use Memsource\API\v3\Auth\Auth;
+use Memsource\API\v7\Job\Job;
+use Memsource\Model\File;
+use Memsource\Model\Parameters;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class Memsource implements MemsourceInterface {
@@ -70,11 +71,29 @@ class Memsource implements MemsourceInterface {
   /**
    * @param $path string Path.
    * @param $formParameters array Form parameters as a key-value array.
+   * @param $file File
    * @return JsonResponse
    */
-  public function post($path, $formParameters) {
-    try {
+  public function post($path, $formParameters, $file = NULL) {
+    if ($file) {
+      $parameters = [];
+
+      $parameters[] = [
+        'name' => 'file',
+        'contents' => base64_encode(file_get_contents($file->path)),
+        'filename' => basename($file->path),
+      ];
+
+      foreach ($formParameters as $key => $value) {
+        $parameters[] = ['name' => $key, 'contents' => $value];
+      }
+
+      $options = [RequestOptions::MULTIPART => $parameters];
+    } else {
       $options = [RequestOptions::FORM_PARAMS => $formParameters];
+    }
+
+    try {
       $response = $this->client->post($this->baseUrl . $path, $options);
     } catch (ClientException $e) {
       $response = $e->getResponse();
