@@ -46,7 +46,7 @@ class JobTest extends TestCase {
    * @test
    */
   public function createShouldReturn401UnauthorizedResponseOnIncorrectToken() {
-    $this->parameters->token = '3cn0gAL4AL9r7aHlgwo8iH7CSF1ka0zdMVEo1e3d18OYz6vEDgynsolu8Xdc97Qrq';
+    $this->parameters->token = 'incorrect-token';
 
     $response = $this->job->create($this->parameters, $this->file);
 
