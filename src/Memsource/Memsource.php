@@ -49,12 +49,17 @@ class Memsource implements MemsourceInterface {
   }
 
   /**
-   * @param string $token
-   * @param int $project
-   * @return JsonResponse
+   * @inheritdoc
    */
   public function getProject($token, $project) {
     return $this->project->getProject($token, $project);
+  }
+
+  /**
+   * @inheritdoc
+   */
+  public function listJobsByProject($token, $project) {
+    return $this->job->listByProject($token, $project);
   }
 
   /**

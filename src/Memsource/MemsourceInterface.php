@@ -17,10 +17,17 @@ interface MemsourceInterface {
 
   /**
    * @param string $token
-   * @param string $project
+   * @param int $project
    * @return JsonResponse
    */
   public function getProject($token, $project);
+
+  /**
+   * @param string $token
+   * @param int $project
+   * @return JsonResponse
+   */
+  public function listJobsByProject($token, $project);
 
   /**
    * @param string $token

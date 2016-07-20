@@ -10,6 +10,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class JobTest extends TestCase {
 
+  const PROJECT = 1;
+
   /** @var File */
   private $file;
 
@@ -42,6 +44,16 @@ class JobTest extends TestCase {
     $this->parameters->token = 'incorrect-token';
 
     $response = $this->job->create($this->parameters, $this->file);
+
+    $this->assertInstanceOf(JsonResponse::class, $response);
+    $this->assertEquals(Response::HTTP_UNAUTHORIZED, $response->getStatusCode());
+  }
+
+  /**
+   * @test
+   */
+  public function listByProjectShouldReturn401UnauthorizedResponseOnIncorrectToken() {
+    $response = $this->job->listByProject('incorrect-token', self::PROJECT);
 
     $this->assertInstanceOf(JsonResponse::class, $response);
     $this->assertEquals(Response::HTTP_UNAUTHORIZED, $response->getStatusCode());
