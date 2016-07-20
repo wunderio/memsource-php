@@ -16,6 +16,19 @@ interface MemsourceInterface {
   public function createJob(Parameters $parameters, File $file);
 
   /**
+   * @param string $token
+   * @param string $project
+   * @return JsonResponse
+   */
+  public function getProject($token, $project);
+
+  /**
+   * @param string $token
+   * @return JsonResponse
+   */
+  public function listProjects($token);
+
+  /**
    * @param string $userName
    * @param string $password
    * @return JsonResponse

@@ -6,6 +6,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\RequestOptions;
 use Memsource\API\v3\Auth\Auth;
+use Memsource\API\v3\Project\Project;
 use Memsource\API\v7\Job\Job;
 use Memsource\Model\File;
 use Memsource\Model\Parameters;
@@ -27,6 +28,9 @@ class Memsource implements MemsourceInterface {
   /** @var Job */
   private $job;
 
+  /** @var Project */
+  private $project;
+
   /**
    * @param string $baseUrl
    */
@@ -42,6 +46,22 @@ class Memsource implements MemsourceInterface {
    */
   public function createJob(Parameters $parameters, File $file) {
     return $this->job->create($parameters, $file);
+  }
+
+  /**
+   * @param string $token
+   * @param int $project
+   * @return JsonResponse
+   */
+  public function getProject($token, $project) {
+    return $this->project->getProject($token, $project);
+  }
+
+  /**
+   * @inheritdoc
+   */
+  public function listProjects($token) {
+    return $this->project->listProjects($token);
   }
 
   /**
