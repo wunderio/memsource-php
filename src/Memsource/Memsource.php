@@ -124,7 +124,7 @@ class Memsource implements MemsourceInterface {
 
       $formParameters[] = [
         'name' => 'file',
-        'contents' => base64_encode(file_get_contents($file->path)),
+        'contents' => fopen($file->path, 'r'),
         'filename' => basename($file->path),
       ];
 
