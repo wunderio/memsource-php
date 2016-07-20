@@ -43,8 +43,7 @@ class JobTest extends MemsourceTestCase {
 
     $response = $this->job->create($this->parameters, $this->file);
 
-    $this->assertInstanceOf(JsonResponse::class, $response);
-    $this->assertEquals(Response::HTTP_UNAUTHORIZED, $response->getStatusCode());
+    $this->assertJsonResponse(Response::HTTP_UNAUTHORIZED, $response);
   }
 
   /**
@@ -53,8 +52,7 @@ class JobTest extends MemsourceTestCase {
   public function getCompletedFileShouldReturn401UnauthorizedResponseOnIncorrectToken() {
     $response = $this->job->getCompletedFile(self::INCORRECT_TOKEN, self::JOB_PART);
 
-    $this->assertInstanceOf(JsonResponse::class, $response);
-    $this->assertEquals(Response::HTTP_UNAUTHORIZED, $response->getStatusCode());
+    $this->assertJsonResponse(Response::HTTP_UNAUTHORIZED, $response);
   }
 
   /**
@@ -63,8 +61,7 @@ class JobTest extends MemsourceTestCase {
   public function getJobShouldReturn401UnauthorizedResponseOnIncorrectToken() {
     $response = $this->job->getJob(self::INCORRECT_TOKEN, self::JOB_PART);
 
-    $this->assertInstanceOf(JsonResponse::class, $response);
-    $this->assertEquals(Response::HTTP_UNAUTHORIZED, $response->getStatusCode());
+    $this->assertJsonResponse(Response::HTTP_UNAUTHORIZED, $response);
   }
 
   /**
@@ -73,8 +70,7 @@ class JobTest extends MemsourceTestCase {
   public function listByProjectShouldReturn401UnauthorizedResponseOnIncorrectToken() {
     $response = $this->job->listByProject(self::INCORRECT_TOKEN, self::PROJECT);
 
-    $this->assertInstanceOf(JsonResponse::class, $response);
-    $this->assertEquals(Response::HTTP_UNAUTHORIZED, $response->getStatusCode());
+    $this->assertJsonResponse(Response::HTTP_UNAUTHORIZED, $response);
   }
 
   /**
@@ -83,8 +79,7 @@ class JobTest extends MemsourceTestCase {
   public function listJobsShouldReturn401UnauthorizedResponseOnIncorrectToken() {
     $response = $this->job->listJobs(self::INCORRECT_TOKEN, self::JOB_PART);
 
-    $this->assertInstanceOf(JsonResponse::class, $response);
-    $this->assertEquals(Response::HTTP_UNAUTHORIZED, $response->getStatusCode());
+    $this->assertJsonResponse(Response::HTTP_UNAUTHORIZED, $response);
   }
 
   private function getTestFilePath() {

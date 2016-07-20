@@ -28,4 +28,13 @@ abstract class MemsourceTestCase extends TestCase {
     $this->memsource->post(Argument::any(), Argument::any(), Argument::any())->willReturn($response);
     $this->memsource = $this->memsource->reveal();
   }
+
+  /**
+   * @param int $expectedStatusCode
+   * @param JsonResponse $jsonResponse
+   */
+  public function assertJsonResponse($expectedStatusCode, $jsonResponse) {
+    $this->assertInstanceOf(JsonResponse::class, $jsonResponse);
+    $this->assertEquals($expectedStatusCode, $jsonResponse->getStatusCode());
+  }
 }

@@ -22,8 +22,7 @@ class AuthTest extends MemsourceTestCase {
   public function loginShouldReturn401UnauthorizedResponseOnIncorrectCredentials() {
     $response = $this->auth->login('incorrect-username', 'incorrect-password');
 
-    $this->assertInstanceOf(JsonResponse::class, $response);
-    $this->assertEquals(Response::HTTP_UNAUTHORIZED, $response->getStatusCode());
+    $this->assertJsonResponse(Response::HTTP_UNAUTHORIZED, $response);
   }
 
   /**
@@ -32,8 +31,7 @@ class AuthTest extends MemsourceTestCase {
   public function loginOtherShouldReturn401UnauthorizedResponseOnIncorrectToken() {
     $response = $this->auth->loginOther(self::INCORRECT_TOKEN, 'token');
 
-    $this->assertInstanceOf(JsonResponse::class, $response);
-    $this->assertEquals(Response::HTTP_UNAUTHORIZED, $response->getStatusCode());
+    $this->assertJsonResponse(Response::HTTP_UNAUTHORIZED, $response);
   }
 
   /**
@@ -42,8 +40,7 @@ class AuthTest extends MemsourceTestCase {
   public function logoutShouldReturn401UnauthorizedResponseOnIncorrectToken() {
     $response = $this->auth->logout(self::INCORRECT_TOKEN);
 
-    $this->assertInstanceOf(JsonResponse::class, $response);
-    $this->assertEquals(Response::HTTP_UNAUTHORIZED, $response->getStatusCode());
+    $this->assertJsonResponse(Response::HTTP_UNAUTHORIZED, $response);
   }
 
   /**
@@ -52,7 +49,6 @@ class AuthTest extends MemsourceTestCase {
   public function whoAmIShouldReturn401UnauthorizedResponseOnIncorrectToken() {
     $response = $this->auth->whoAmI(self::INCORRECT_TOKEN);
 
-    $this->assertInstanceOf(JsonResponse::class, $response);
-    $this->assertEquals(Response::HTTP_UNAUTHORIZED, $response->getStatusCode());
+    $this->assertJsonResponse(Response::HTTP_UNAUTHORIZED, $response);
   }
 }
