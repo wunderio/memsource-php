@@ -4,10 +4,11 @@ See http://wiki.memsource.com/wiki/Memsource_API for API documentation.
 
 ## Usage
 
-"Before calling any API that requires an authenticated user, you have to
-call auth/login API to obtain an authentication token. Such a token is
-valid for 24 hours and can be used for all subsequent calls (please, do
-not acquire a new token for every call)."
+"Before calling any API that requires an authenticated user, you have to call
+[auth/login](http://wiki.memsource.com/wiki/Authentication_API_v3) API to
+obtain an authentication token. Such a token is valid for 24 hours and can be
+used for all subsequent calls (please, do not acquire a new token for every
+call)."
 
 http://wiki.memsource.com/wiki/Memsource_API#Authentication
 
