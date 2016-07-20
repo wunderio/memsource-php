@@ -186,22 +186,33 @@ class Memsource implements MemsourceInterface {
    */
   private function buildPostOptions(Parameters $parameters, File $file = NULL) {
     if ($file) {
-      $formParameters = [];
-
-      $formParameters[] = [
-        'name' => 'file',
-        'contents' => fopen($file->path, 'r'),
-        'filename' => basename($file->path),
-      ];
-
-      foreach ($parameters as $key => $value) {
-        $formParameters[] = ['name' => $key, 'contents' => $value];
-      }
-
-      $options = [RequestOptions::MULTIPART => $formParameters];
+      $options = $this->buildMultipartPostOptions($parameters, $file);
     } else {
       $options = [RequestOptions::FORM_PARAMS => $parameters];
     }
+
+    return $options;
+  }
+
+  /**
+   * @param Parameters $parameters
+   * @param File $file
+   * @return array
+   */
+  private function buildMultipartPostOptions(Parameters $parameters, File $file) {
+    $formParameters = [];
+
+    $formParameters[] = [
+      'name' => 'file',
+      'contents' => fopen($file->path, 'r'),
+      'filename' => basename($file->path),
+    ];
+
+    foreach ($parameters as $key => $value) {
+      $formParameters[] = ['name' => $key, 'contents' => $value];
+    }
+
+    $options = [RequestOptions::MULTIPART => $formParameters];
 
     return $options;
   }
