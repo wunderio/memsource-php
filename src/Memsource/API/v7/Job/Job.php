@@ -11,6 +11,7 @@ class Job {
 
   const PATH_BASE = 'web/api/v7/job/';
   const PATH_CREATE = self::PATH_BASE . 'create';
+  const PATH_GET_COMPLETED_FILE = self::PATH_BASE . 'getCompletedFile';
   const PATH_LIST_BY_PROJECT = self::PATH_BASE . 'listByProject';
 
   /** @var Memsource */
@@ -30,6 +31,19 @@ class Job {
    */
   public function create(Parameters $parameters, File $file) {
     return $this->memsource->post(self::PATH_CREATE, $parameters, $file);
+  }
+
+  /**
+   * @param string $token
+   * @param int $jobPart
+   * @return JsonResponse
+   */
+  public function getCompletedFile($token, $jobPart) {
+    $parameters = new Parameters();
+    $parameters->token = $token;
+    $parameters->jobPart = $jobPart;
+
+    return $this->memsource->post(self::PATH_GET_COMPLETED_FILE, $parameters);
   }
 
   /**

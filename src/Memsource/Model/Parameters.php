@@ -4,6 +4,9 @@ namespace Memsource\Model;
 
 class Parameters {
 
+  /** @var int */
+  public $jobPart;
+
   /** @var string */
   public $password;
 

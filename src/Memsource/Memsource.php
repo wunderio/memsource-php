@@ -51,6 +51,13 @@ class Memsource implements MemsourceInterface {
   /**
    * @inheritdoc
    */
+  public function getCompletedFile($token, $jobPart) {
+    $this->job->getCompletedFile($token, $jobPart);
+  }
+
+  /**
+   * @inheritdoc
+   */
   public function getProject($token, $project) {
     return $this->project->getProject($token, $project);
   }
