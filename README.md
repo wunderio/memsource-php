@@ -12,6 +12,8 @@ not acquire a new token for every call)."
 http://wiki.memsource.com/wiki/Memsource_API#Authentication
 
 ```php
+<?php
+
 use Memsource\Memsource;
 
 $memsource = new Memsource();
