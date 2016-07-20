@@ -14,6 +14,7 @@ class Job {
   const PATH_GET_COMPLETED_FILE = self::PATH_BASE . 'getCompletedFile';
   const PATH_GET_JOB = self::PATH_BASE . 'getCompletedFile';
   const PATH_LIST_BY_PROJECT = self::PATH_BASE . 'listByProject';
+  const PATH_LIST_JOBS = self::PATH_BASE . 'list';
 
   /** @var Memsource */
   private $memsource;
@@ -71,5 +72,18 @@ class Job {
     $parameters->project = $project;
 
     return $this->memsource->post(self::PATH_LIST_BY_PROJECT, $parameters);
+  }
+
+  /**
+   * @param string $token
+   * @param int $jobPart
+   * @return JsonResponse
+   */
+  public function listJobs($token, $jobPart) {
+    $parameters = new Parameters();
+    $parameters->token = $token;
+    $parameters->jobPart = $jobPart;
+
+    return $this->memsource->post(self::PATH_LIST_JOBS, $parameters);
   }
 }

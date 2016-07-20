@@ -77,6 +77,16 @@ class JobTest extends MemsourceTestCase {
     $this->assertEquals(Response::HTTP_UNAUTHORIZED, $response->getStatusCode());
   }
 
+  /**
+   * @test
+   */
+  public function listJobsShouldReturn401UnauthorizedResponseOnIncorrectToken() {
+    $response = $this->job->listJobs(self::INCORRECT_TOKEN, self::JOB_PART);
+
+    $this->assertInstanceOf(JsonResponse::class, $response);
+    $this->assertEquals(Response::HTTP_UNAUTHORIZED, $response->getStatusCode());
+  }
+
   private function getTestFilePath() {
     return __DIR__ . '/test_job.html';
   }
