@@ -4,7 +4,10 @@ namespace Memsource\Model;
 
 class Parameters {
 
-  /** @var Project */
+  /** @var string */
+  public $password;
+
+  /** @var int */
   public $project;
 
   /** @var string */
@@ -12,4 +15,7 @@ class Parameters {
 
   /** @var string */
   public $token;
+
+  /** @var string */
+  public $userName;
 }

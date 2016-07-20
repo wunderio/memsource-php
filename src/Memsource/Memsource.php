@@ -13,6 +13,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class Memsource implements MemsourceInterface {
 
+  const DEFAULT_BASE_URL = 'https://cloud.memsource.com/';
+
   /** @var Auth */
   private $auth;
 
@@ -25,7 +27,10 @@ class Memsource implements MemsourceInterface {
   /** @var Job */
   private $job;
 
-  public function __construct($baseUrl) {
+  /**
+   * @param string $baseUrl
+   */
+  public function __construct($baseUrl = self::DEFAULT_BASE_URL) {
     $this->auth = $this->getAuth();
     $this->baseUrl = $baseUrl;
     $this->client = $this->getClient();
@@ -33,11 +38,10 @@ class Memsource implements MemsourceInterface {
   }
 
   /**
-   * @param $parameters Parameters Job parameters.
-   * @return JsonResponse
+   * @inheritdoc
    */
-  public function createJob(Parameters $parameters) {
-    $this->job;
+  public function createJob(Parameters $parameters, File $file) {
+    return $this->job->create($parameters, $file);
   }
 
   /**
@@ -69,29 +73,13 @@ class Memsource implements MemsourceInterface {
   }
 
   /**
-   * @param $path string Path.
-   * @param $formParameters array Form parameters as a key-value array.
-   * @param $file File
+   * @param string $path
+   * @param Parameters $parameters
+   * @param File|NULL $file
    * @return JsonResponse
    */
-  public function post($path, $formParameters, $file = NULL) {
-    if ($file) {
-      $parameters = [];
-
-      $parameters[] = [
-        'name' => 'file',
-        'contents' => base64_encode(file_get_contents($file->path)),
-        'filename' => basename($file->path),
-      ];
-
-      foreach ($formParameters as $key => $value) {
-        $parameters[] = ['name' => $key, 'contents' => $value];
-      }
-
-      $options = [RequestOptions::MULTIPART => $parameters];
-    } else {
-      $options = [RequestOptions::FORM_PARAMS => $formParameters];
-    }
+  public function post($path, Parameters $parameters, File $file = NULL) {
+    $options = $this->buildPostOptions($parameters, $file);
 
     try {
       $response = $this->client->post($this->baseUrl . $path, $options);
@@ -118,7 +106,37 @@ class Memsource implements MemsourceInterface {
     return new Client($config);
   }
 
+  /**
+   * @return Job
+   */
   protected function getJob() {
     return new Job($this);
+  }
+
+  /**
+   * @param Parameters $parameters
+   * @param File $file
+   * @return array
+   */
+  private function buildPostOptions(Parameters $parameters, File $file = NULL) {
+    if ($file) {
+      $formParameters = [];
+
+      $formParameters[] = [
+        'name' => 'file',
+        'contents' => base64_encode(file_get_contents($file->path)),
+        'filename' => basename($file->path),
+      ];
+
+      foreach ($parameters as $key => $value) {
+        $formParameters[] = ['name' => $key, 'contents' => $value];
+      }
+
+      $options = [RequestOptions::MULTIPART => $formParameters];
+    } else {
+      $options = [RequestOptions::FORM_PARAMS => $parameters];
+    }
+
+    return $options;
   }
 }

@@ -15,7 +15,7 @@ class AuthTest extends TestCase {
   private $memsource;
 
   public function setUp() {
-    $this->memsource = new Memsource('https://cloud.memsource.com/');
+    $this->memsource = new Memsource();
     $this->auth = new Auth($this->memsource);
   }
 

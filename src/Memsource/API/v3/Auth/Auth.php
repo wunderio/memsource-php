@@ -3,6 +3,7 @@
 namespace Memsource\API\v3\Auth;
 
 use Memsource\Memsource;
+use Memsource\Model\Parameters;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class Auth {
@@ -16,41 +17,58 @@ class Auth {
   /** @var Memsource */
   private $memsource;
 
+  /**
+   * @param Memsource $memsource
+   */
   public function __construct(Memsource $memsource) {
     $this->memsource = $memsource;
   }
 
   /**
-   * @param $userName string User name.
-   * @param $password string Password.
+   * @param string $userName
+   * @param string $password
    * @return JsonResponse
    */
   public function login($userName, $password) {
-    return $this->memsource->post(self::PATH_LOGIN, ['userName' => $userName, 'password' => $password]);
+    $parameters = new Parameters();
+    $parameters->userName = $userName;
+    $parameters->password = $password;
+
+    return $this->memsource->post(self::PATH_LOGIN, $parameters);
   }
 
   /**
-   * @param $token string Token.
-   * @param $userName string User name.
+   * @param string $token
+   * @param string $userName
    * @return JsonResponse
    */
   public function loginOther($token, $userName) {
-    return $this->memsource->post(self::PATH_LOGIN_OTHER, ['token' => $token, 'userName' => $userName]);
+    $parameters = new Parameters();
+    $parameters->token = $token;
+    $parameters->userName = $userName;
+
+    return $this->memsource->post(self::PATH_LOGIN_OTHER, $parameters);
   }
 
   /**
-   * @param $token string Token.
+   * @param string $token
    * @return JsonResponse
    */
   public function logout($token) {
-    return $this->memsource->post(self::PATH_LOGOUT, ['token' => $token]);
+    $parameters = new Parameters();
+    $parameters->token = $token;
+
+    return $this->memsource->post(self::PATH_LOGOUT, $parameters);
   }
 
   /**
-   * @param $token string Token.
+   * @param string $token
    * @return JsonResponse
    */
   public function whoAmI($token) {
-    return $this->memsource->post(self::PATH_WHO_AM_I, ['token' => $token]);
+    $parameters = new Parameters();
+    $parameters->token = $token;
+
+    return $this->memsource->post(self::PATH_WHO_AM_I, $parameters);
   }
 }
