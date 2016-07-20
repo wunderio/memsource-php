@@ -23,6 +23,13 @@ interface MemsourceInterface {
   public function getCompletedFile($token, $jobPart);
 
   /**
+   * @param $token
+   * @param $jobPart
+   * @return JsonResponse
+   */
+  public function getJob($token, $jobPart);
+
+  /**
    * @param string $token
    * @param int $project
    * @return JsonResponse

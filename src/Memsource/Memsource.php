@@ -35,10 +35,10 @@ class Memsource implements MemsourceInterface {
    * @param string $baseUrl
    */
   public function __construct($baseUrl = self::DEFAULT_BASE_URL) {
-    $this->auth = $this->getAuth();
+    $this->auth = $this->getAuthService();
     $this->baseUrl = $baseUrl;
-    $this->client = $this->getClient();
-    $this->job = $this->getJob();
+    $this->client = $this->getHttpClient();
+    $this->job = $this->getJobService();
   }
 
   /**
@@ -51,8 +51,15 @@ class Memsource implements MemsourceInterface {
   /**
    * @inheritdoc
    */
+  public function getJob($token, $jobPart) {
+    return $this->job->getJob($token, $jobPart);
+  }
+
+  /**
+   * @inheritdoc
+   */
   public function getCompletedFile($token, $jobPart) {
-    $this->job->getCompletedFile($token, $jobPart);
+    return $this->job->getCompletedFile($token, $jobPart);
   }
 
   /**
@@ -94,7 +101,7 @@ class Memsource implements MemsourceInterface {
    * @inheritdoc
    */
   public function logout($token) {
-    $this->auth->logout($token);
+    return $this->auth->logout($token);
   }
 
   /**
@@ -125,14 +132,14 @@ class Memsource implements MemsourceInterface {
   /**
    * @return Auth
    */
-  protected function getAuth() {
+  protected function getAuthService() {
     return new Auth($this);
   }
 
   /**
    * @return Client
    */
-  protected function getClient() {
+  protected function getHttpClient() {
     $config = ['base_uri' => $this->baseUrl];
 
     return new Client($config);
@@ -141,7 +148,7 @@ class Memsource implements MemsourceInterface {
   /**
    * @return Job
    */
-  protected function getJob() {
+  protected function getJobService() {
     return new Job($this);
   }
 

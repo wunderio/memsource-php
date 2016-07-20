@@ -63,6 +63,16 @@ class JobTest extends TestCase {
   /**
    * @test
    */
+  public function getJobShouldReturn401UnauthorizedResponseOnIncorrectToken() {
+    $response = $this->job->getJob('incorrect-token', self::JOB_PART);
+
+    $this->assertInstanceOf(JsonResponse::class, $response);
+    $this->assertEquals(Response::HTTP_UNAUTHORIZED, $response->getStatusCode());
+  }
+
+  /**
+   * @test
+   */
   public function listByProjectShouldReturn401UnauthorizedResponseOnIncorrectToken() {
     $response = $this->job->listByProject('incorrect-token', self::PROJECT);
 
