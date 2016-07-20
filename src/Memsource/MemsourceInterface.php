@@ -2,8 +2,8 @@
 
 namespace Memsource;
 
-use Memsource\Model\File;
 use Memsource\Model\Parameters;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 interface MemsourceInterface {

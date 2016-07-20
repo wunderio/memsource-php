@@ -3,9 +3,9 @@
 namespace Memsource\Tests;
 
 use Memsource\API\v7\Job\Job;
-use Memsource\Model\File;
 use Memsource\Model\JobFilter;
 use Memsource\Model\Parameters;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Response;
 
 class JobTest extends MemsourceTestCase {
@@ -28,8 +28,7 @@ class JobTest extends MemsourceTestCase {
 
   public function setUp() {
     parent::setUp();
-    $this->file = new File();
-    $this->file->path = $this->getTestFilePath();
+    $this->file = new File($this->getTestFilePath());
 
     $this->job = new Job($this->memsource);
 

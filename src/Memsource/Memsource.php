@@ -9,8 +9,8 @@ use Memsource\API\v2\Language\Language;
 use Memsource\API\v3\Auth\Auth;
 use Memsource\API\v3\Project\Project;
 use Memsource\API\v7\Job\Job;
-use Memsource\Model\File;
 use Memsource\Model\Parameters;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class Memsource implements MemsourceInterface {
@@ -204,8 +204,8 @@ class Memsource implements MemsourceInterface {
 
     $formParameters[] = [
       'name' => 'file',
-      'contents' => fopen($file->path, 'r'),
-      'filename' => basename($file->path),
+      'contents' => fopen($file->getPathname(), 'r'),
+      'filename' => $file->getFilename(),
     ];
 
     foreach ($parameters as $key => $value) {

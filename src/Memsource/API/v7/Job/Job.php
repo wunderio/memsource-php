@@ -3,8 +3,8 @@
 namespace Memsource\API\v7\Job;
 
 use Memsource\Memsource;
-use Memsource\Model\File;
 use Memsource\Model\Parameters;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class Job {
