@@ -146,7 +146,7 @@ class Memsource implements MemsourceInterface {
       $response = $e->getResponse();
     }
 
-    return new JsonResponse($response->getBody(), $response->getStatusCode(), $response->getHeaders());
+    return new JsonResponse($response->getBody(), $response->getStatusCode(), $response->getHeaders(), TRUE);
   }
 
   /**
