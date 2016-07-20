@@ -1,14 +1,14 @@
 <?php
 
+namespace Memsource\Tests;
+
 use Memsource\API\v7\Job\Job;
-use Memsource\Memsource;
 use Memsource\Model\File;
 use Memsource\Model\Parameters;
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
-class JobTest extends TestCase {
+class JobTest extends MemsourceTestCase {
 
   const JOB_PART = 1;
   const PROJECT = 1;
@@ -19,17 +19,14 @@ class JobTest extends TestCase {
   /** @var Job */
   private $job;
 
-  /** @var Memsource */
-  private $memsource;
-
   /** @var Parameters */
   private $parameters;
 
   public function setUp() {
+    parent::setUp();
     $this->file = new File();
     $this->file->path = $this->getTestFilePath();
 
-    $this->memsource = new Memsource();
     $this->job = new Job($this->memsource);
 
     $this->parameters = new Parameters();
@@ -42,7 +39,7 @@ class JobTest extends TestCase {
    * @test
    */
   public function createShouldReturn401UnauthorizedResponseOnIncorrectToken() {
-    $this->parameters->token = 'incorrect-token';
+    $this->parameters->token = self::INCORRECT_TOKEN;
 
     $response = $this->job->create($this->parameters, $this->file);
 
@@ -54,7 +51,7 @@ class JobTest extends TestCase {
    * @test
    */
   public function getCompletedFileShouldReturn401UnauthorizedResponseOnIncorrectToken() {
-    $response = $this->job->getCompletedFile('incorrect-token', self::JOB_PART);
+    $response = $this->job->getCompletedFile(self::INCORRECT_TOKEN, self::JOB_PART);
 
     $this->assertInstanceOf(JsonResponse::class, $response);
     $this->assertEquals(Response::HTTP_UNAUTHORIZED, $response->getStatusCode());
@@ -64,7 +61,7 @@ class JobTest extends TestCase {
    * @test
    */
   public function getJobShouldReturn401UnauthorizedResponseOnIncorrectToken() {
-    $response = $this->job->getJob('incorrect-token', self::JOB_PART);
+    $response = $this->job->getJob(self::INCORRECT_TOKEN, self::JOB_PART);
 
     $this->assertInstanceOf(JsonResponse::class, $response);
     $this->assertEquals(Response::HTTP_UNAUTHORIZED, $response->getStatusCode());
@@ -74,7 +71,7 @@ class JobTest extends TestCase {
    * @test
    */
   public function listByProjectShouldReturn401UnauthorizedResponseOnIncorrectToken() {
-    $response = $this->job->listByProject('incorrect-token', self::PROJECT);
+    $response = $this->job->listByProject(self::INCORRECT_TOKEN, self::PROJECT);
 
     $this->assertInstanceOf(JsonResponse::class, $response);
     $this->assertEquals(Response::HTTP_UNAUTHORIZED, $response->getStatusCode());

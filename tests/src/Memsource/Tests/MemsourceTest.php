@@ -1,5 +1,7 @@
 <?php
 
+namespace Memsource\Tests;
+
 use Memsource\Memsource;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\JsonResponse;

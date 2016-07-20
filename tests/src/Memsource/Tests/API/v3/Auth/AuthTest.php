@@ -1,21 +1,18 @@
 <?php
 
+namespace Memsource\Tests;
+
 use Memsource\API\v3\Auth\Auth;
-use Memsource\Memsource;
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
-class AuthTest extends TestCase {
+class AuthTest extends MemsourceTestCase {
 
   /** @var Auth */
   private $auth;
 
-  /** @var Memsource */
-  private $memsource;
-
   public function setUp() {
-    $this->memsource = new Memsource();
+    parent::setUp();
     $this->auth = new Auth($this->memsource);
   }
 
@@ -33,7 +30,7 @@ class AuthTest extends TestCase {
    * @test
    */
   public function loginOtherShouldReturn401UnauthorizedResponseOnIncorrectToken() {
-    $response = $this->auth->loginOther('incorrect-token', 'token');
+    $response = $this->auth->loginOther(self::INCORRECT_TOKEN, 'token');
 
     $this->assertInstanceOf(JsonResponse::class, $response);
     $this->assertEquals(Response::HTTP_UNAUTHORIZED, $response->getStatusCode());
@@ -43,7 +40,7 @@ class AuthTest extends TestCase {
    * @test
    */
   public function logoutShouldReturn401UnauthorizedResponseOnIncorrectToken() {
-    $response = $this->auth->logout('incorrect-token');
+    $response = $this->auth->logout(self::INCORRECT_TOKEN);
 
     $this->assertInstanceOf(JsonResponse::class, $response);
     $this->assertEquals(Response::HTTP_UNAUTHORIZED, $response->getStatusCode());
@@ -53,7 +50,7 @@ class AuthTest extends TestCase {
    * @test
    */
   public function whoAmIShouldReturn401UnauthorizedResponseOnIncorrectToken() {
-    $response = $this->auth->whoAmI('incorrect-token');
+    $response = $this->auth->whoAmI(self::INCORRECT_TOKEN);
 
     $this->assertInstanceOf(JsonResponse::class, $response);
     $this->assertEquals(Response::HTTP_UNAUTHORIZED, $response->getStatusCode());
