@@ -5,6 +5,7 @@ namespace Memsource;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\RequestOptions;
+use Memsource\API\v2\Language\Language;
 use Memsource\API\v3\Auth\Auth;
 use Memsource\API\v3\Project\Project;
 use Memsource\API\v7\Job\Job;
@@ -28,6 +29,9 @@ class Memsource implements MemsourceInterface {
   /** @var Job */
   private $job;
 
+  /** @var Language */
+  private $language;
+
   /** @var Project */
   private $project;
 
@@ -40,6 +44,7 @@ class Memsource implements MemsourceInterface {
     $this->baseUrl = $baseUrl;
     $this->client = isset($client) ? $client : $this->getHttpClient();
     $this->job = $this->getJobService();
+    $this->language = $this->getLanguageService();
   }
 
   /**
@@ -89,6 +94,13 @@ class Memsource implements MemsourceInterface {
    */
   public function listProjects($token) {
     return $this->project->listProjects($token);
+  }
+
+  /**
+   * @inheritdoc
+   */
+  public function listSupportedLanguages($token) {
+    return $this->language->listSupportedLanguages($token);
   }
 
   /**
@@ -158,6 +170,13 @@ class Memsource implements MemsourceInterface {
    */
   protected function getJobService() {
     return new Job($this);
+  }
+
+  /**
+   * @return Language
+   */
+  protected function getLanguageService() {
+    return new Language($this);
   }
 
   /**
