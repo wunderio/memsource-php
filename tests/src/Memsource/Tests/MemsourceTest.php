@@ -2,18 +2,28 @@
 
 namespace Memsource\Tests;
 
+use GuzzleHttp\Client;
 use Memsource\Memsource;
-use PHPUnit\Framework\TestCase;
+use Prophecy\Argument;
+use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
-class MemsourceTest extends TestCase {
+class MemsourceTest extends MemsourceTestCase {
 
-  /** @var Memsource */
-  private $memsource;
+  /** @var Client */
+  private $client;
+
+  /** @var ResponseInterface */
+  private $response;
 
   public function setUp() {
-    $this->memsource = new Memsource();
+    $this->response = new \GuzzleHttp\Psr7\Response(Response::HTTP_UNAUTHORIZED);
+
+    $this->client = $this->prophesize(Client::class);
+    $this->client->post(Argument::any(), Argument::any())->willReturn($this->response);
+
+    $this->memsource = new Memsource(self::MEMSOURCE_TEST_BASE_URL, $this->client->reveal());
   }
 
   /**

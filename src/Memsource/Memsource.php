@@ -33,11 +33,12 @@ class Memsource implements MemsourceInterface {
 
   /**
    * @param string $baseUrl
+   * @param Client $client
    */
-  public function __construct($baseUrl = self::DEFAULT_BASE_URL) {
+  public function __construct($baseUrl = self::DEFAULT_BASE_URL, Client $client = NULL) {
     $this->auth = $this->getAuthService();
     $this->baseUrl = $baseUrl;
-    $this->client = $this->getHttpClient();
+    $this->client = isset($client) ? $client : $this->getHttpClient();
     $this->job = $this->getJobService();
   }
 

@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 abstract class MemsourceTestCase extends TestCase {
 
   const INCORRECT_TOKEN = 'incorrect-token';
+  const MEMSOURCE_TEST_BASE_URL = 'http://www.example.com/';
 
   /** @var Memsource */
   protected $memsource;
