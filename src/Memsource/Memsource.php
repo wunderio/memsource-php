@@ -85,8 +85,8 @@ class Memsource implements MemsourceInterface {
   /**
    * @inheritdoc
    */
-  public function listJobsByProject($token, $project) {
-    return $this->job->listByProject($token, $project);
+  public function listJobsByProject($token, $page = NULL, $project, $workflowLevel = NULL, $assignedTo = NULL, $status = NULL) {
+    return $this->job->listByProject($token, $page, $project, $workflowLevel, $assignedTo, $status);
   }
 
   /**

@@ -3,7 +3,6 @@
 namespace Memsource\Tests;
 
 use Memsource\API\v3\Auth\Auth;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 class AuthTest extends MemsourceTestCase {

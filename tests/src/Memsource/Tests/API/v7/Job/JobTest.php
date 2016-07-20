@@ -4,14 +4,18 @@ namespace Memsource\Tests;
 
 use Memsource\API\v7\Job\Job;
 use Memsource\Model\File;
+use Memsource\Model\JobFilter;
 use Memsource\Model\Parameters;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 class JobTest extends MemsourceTestCase {
 
+  const ASSIGNED_TO = 1;
   const JOB_PART = 1;
+  const PAGE = 1;
   const PROJECT = 1;
+  const STATUS = JobFilter::STATUS_COMPLETED;
+  const WORKFLOW_LEVEL = 1;
 
   /** @var File */
   private $file;
@@ -68,7 +72,14 @@ class JobTest extends MemsourceTestCase {
    * @test
    */
   public function listByProjectShouldReturn401UnauthorizedResponseOnIncorrectToken() {
-    $response = $this->job->listByProject(self::INCORRECT_TOKEN, self::PROJECT);
+    $response = $this->job->listByProject(
+      self::INCORRECT_TOKEN,
+      self::PAGE,
+      self::PROJECT,
+      self::WORKFLOW_LEVEL,
+      self::ASSIGNED_TO,
+      self::STATUS
+    );
 
     $this->assertJsonResponse(Response::HTTP_UNAUTHORIZED, $response);
   }

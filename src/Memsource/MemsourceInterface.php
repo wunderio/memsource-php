@@ -45,10 +45,14 @@ interface MemsourceInterface {
 
   /**
    * @param string $token
+   * @param int|null $page
    * @param int $project
+   * @param int|null $workflowLevel
+   * @param int|null $assignedTo
+   * @param string|null $status @see JobFilter
    * @return JsonResponse
    */
-  public function listJobsByProject($token, $project);
+  public function listJobsByProject($token, $page = NULL, $project, $workflowLevel = NULL, $assignedTo = NULL, $status = NULL);
 
   /**
    * @param string $token

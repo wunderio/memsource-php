@@ -63,13 +63,21 @@ class Job {
 
   /**
    * @param string $token
+   * @param int|null $page
    * @param int $project
+   * @param int|null $workflowLevel
+   * @param int|null $assignedTo
+   * @param string|null $status @see JobFilter
    * @return JsonResponse
    */
-  public function listByProject($token, $project) {
+  public function listByProject($token, $page = NULL, $project, $workflowLevel = NULL, $assignedTo = NULL, $status = NULL) {
     $parameters = new Parameters();
     $parameters->token = $token;
+    $parameters->page = $page;
     $parameters->project = $project;
+    $parameters->workflowLevel = $workflowLevel;
+    $parameters->assignedTo = $assignedTo;
+    $parameters->status = $status;
 
     return $this->memsource->post(self::PATH_LIST_BY_PROJECT, $parameters);
   }

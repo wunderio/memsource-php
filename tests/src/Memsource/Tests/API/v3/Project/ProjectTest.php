@@ -3,7 +3,6 @@
 namespace Memsource\Tests;
 
 use Memsource\API\v3\Project\Project;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 class ProjectTest extends MemsourceTestCase {
