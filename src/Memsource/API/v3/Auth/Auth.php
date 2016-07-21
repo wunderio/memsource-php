@@ -2,27 +2,17 @@
 
 namespace Memsource\API\v3\Auth;
 
-use Memsource\Memsource;
+use Memsource\API\BaseApi;
 use Memsource\Model\Parameters;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-class Auth {
+class Auth extends BaseApi {
 
   const PATH_BASE = '/web/api/v3/auth/';
   const PATH_LOGIN = self::PATH_BASE . 'login';
   const PATH_LOGIN_OTHER = self::PATH_BASE . 'loginOther';
   const PATH_LOGOUT = self::PATH_BASE . 'logout';
   const PATH_WHO_AM_I = self::PATH_BASE . 'whoAmI';
-
-  /** @var Memsource */
-  private $memsource;
-
-  /**
-   * @param Memsource $memsource
-   */
-  public function __construct(Memsource $memsource) {
-    $this->memsource = $memsource;
-  }
 
   /**
    * @param string $userName

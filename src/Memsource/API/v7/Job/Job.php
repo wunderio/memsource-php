@@ -2,12 +2,12 @@
 
 namespace Memsource\API\v7\Job;
 
-use Memsource\Memsource;
+use Memsource\API\BaseApi;
 use Memsource\Model\Parameters;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-class Job {
+class Job extends BaseApi {
 
   const PATH_BASE = 'web/api/v7/job/';
   const PATH_CREATE = self::PATH_BASE . 'create';
@@ -15,16 +15,6 @@ class Job {
   const PATH_GET_JOB = self::PATH_BASE . 'getCompletedFile';
   const PATH_LIST_BY_PROJECT = self::PATH_BASE . 'listByProject';
   const PATH_LIST_JOBS = self::PATH_BASE . 'list';
-
-  /** @var Memsource */
-  private $memsource;
-
-  /**
-   * @param Memsource $memsource
-   */
-  public function __construct(Memsource $memsource) {
-    $this->memsource = $memsource;
-  }
 
   /**
    * @param Parameters $parameters
