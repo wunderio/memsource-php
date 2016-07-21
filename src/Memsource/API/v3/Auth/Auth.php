@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class Auth extends BaseApi {
 
-  const PATH_BASE = '/web/api/v3/auth/';
+  const PATH_BASE = 'web/api/v3/auth/';
   const PATH_LOGIN = self::PATH_BASE . 'login';
   const PATH_LOGIN_OTHER = self::PATH_BASE . 'loginOther';
   const PATH_LOGOUT = self::PATH_BASE . 'logout';
