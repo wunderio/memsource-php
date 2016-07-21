@@ -2,6 +2,7 @@
 
 namespace Memsource;
 
+use GuzzleHttp\Promise\PromiseInterface;
 use Memsource\Model\Parameters;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -18,7 +19,7 @@ interface MemsourceInterface {
   /**
    * @param Parameters $parameters
    * @param File $file
-   * @return JsonResponse
+   * @return PromiseInterface
    */
   public function createJobAsync(Parameters $parameters, File $file);
 

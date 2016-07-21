@@ -2,11 +2,11 @@
 
 namespace Memsource\Tests;
 
+use GuzzleHttp\Promise\PromiseInterface;
 use Memsource\API\Async\v2\Job\JobAsync;
 use Memsource\Model\JobFilter;
 use Memsource\Model\Parameters;
 use Symfony\Component\HttpFoundation\File\File;
-use Symfony\Component\HttpFoundation\Response;
 
 class JobAsyncTest extends MemsourceTestCase {
 
@@ -43,12 +43,12 @@ class JobAsyncTest extends MemsourceTestCase {
   /**
    * @test
    */
-  public function createShouldReturn401UnauthorizedResponseOnIncorrectToken() {
+  public function createShouldReturnPromise() {
     $this->parameters->token = self::INCORRECT_TOKEN;
 
     $response = $this->jobAsync->create($this->parameters, $this->file);
 
-    $this->assertJsonResponse(Response::HTTP_UNAUTHORIZED, $response);
+    $this->assertInstanceOf(PromiseInterface::class, $response);
   }
 
   private function getTestFilePath() {

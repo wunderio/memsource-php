@@ -4,6 +4,7 @@ namespace Memsource;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Promise\PromiseInterface;
 use GuzzleHttp\RequestOptions;
 use Memsource\API\Async\v2\Job\JobAsync;
 use Memsource\API\v2\Language\Language;
@@ -48,6 +49,7 @@ class Memsource implements MemsourceInterface {
     $this->baseUrl = $baseUrl;
     $this->client = isset($client) ? $client : $this->getHttpClient();
     $this->job = $this->getJobService();
+    $this->jobAsync = $this->getJobAsyncService();
     $this->language = $this->getLanguageService();
   }
 
@@ -164,7 +166,7 @@ class Memsource implements MemsourceInterface {
    * @param string $path
    * @param Parameters $parameters
    * @param File|NULL $file
-   * @return JsonResponse
+   * @return PromiseInterface
    */
   public function postAsync($path, Parameters $parameters, File $file = NULL) {
     $options = $this->buildPostOptions($parameters, $file);
@@ -175,7 +177,7 @@ class Memsource implements MemsourceInterface {
       $response = $e->getResponse();
     }
 
-    return new JsonResponse($response->getBody(), $response->getStatusCode(), $response->getHeaders(), TRUE);
+    return $response;
   }
 
   /**
@@ -199,6 +201,13 @@ class Memsource implements MemsourceInterface {
    */
   protected function getJobService() {
     return new Job($this);
+  }
+
+  /**
+   * @return JobAsync
+   */
+  protected function getJobAsyncService() {
+    return new JobAsync($this);
   }
 
   /**
