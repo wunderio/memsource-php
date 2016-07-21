@@ -75,6 +75,12 @@ interface MemsourceInterface {
   public function listSupportedLanguages($token);
 
   /**
+   * @param string $token
+   * @return JsonResponse
+   */
+  public function listTranslationMemories($token);
+
+  /**
    * @param string $userName
    * @param string $password
    * @return JsonResponse
