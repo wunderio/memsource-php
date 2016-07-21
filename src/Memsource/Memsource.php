@@ -5,7 +5,6 @@ namespace Memsource;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Promise\PromiseInterface;
-use GuzzleHttp\RequestOptions;
 use Memsource\API\Async\v2\Job\JobAsync;
 use Memsource\API\v2\Language\Language;
 use Memsource\API\v3\Auth\Auth;
@@ -41,6 +40,9 @@ class Memsource implements MemsourceInterface {
   /** @var Project */
   private $project;
 
+  /** @var RequestOptionsBuilder */
+  private $requestOptionsBuilder;
+
   /** @var TranslationMemory */
   private $translationMemory;
 
@@ -56,6 +58,7 @@ class Memsource implements MemsourceInterface {
     $this->jobAsync = $this->getJobAsyncService();
     $this->language = $this->getLanguageService();
     $this->project = $this->getProjectService();
+    $this->requestOptionsBuilder = $this->getRequestOptionsBuilder();
     $this->translationMemory = $this->getTranslationMemoryService();
   }
 
@@ -164,7 +167,7 @@ class Memsource implements MemsourceInterface {
    * @return JsonResponse
    */
   public function post($path, Parameters $parameters, File $file = NULL) {
-    $options = $this->buildPostOptions($parameters, $file);
+    $options = $this->requestOptionsBuilder->buildPostOptions($parameters, $file);
 
     try {
       $response = $this->client->post($this->baseUrl . $path, $options);
@@ -182,7 +185,7 @@ class Memsource implements MemsourceInterface {
    * @return PromiseInterface
    */
   public function postAsync($path, Parameters $parameters, File $file = NULL) {
-    $options = $this->buildPostOptions($parameters, $file);
+    $options = $this->requestOptionsBuilder->buildPostOptions($parameters, $file);
 
     return $this->client->postAsync($this->baseUrl . $path, $options);
   }
@@ -232,47 +235,16 @@ class Memsource implements MemsourceInterface {
   }
 
   /**
+   * @return RequestOptionsBuilder
+   */
+  protected function getRequestOptionsBuilder() {
+    return new RequestOptionsBuilder();
+  }
+
+  /**
    * @return TranslationMemory
    */
   protected function getTranslationMemoryService() {
     return new TranslationMemory($this);
-  }
-
-  /**
-   * @param Parameters $parameters
-   * @param File $file
-   * @return array
-   */
-  private function buildPostOptions(Parameters $parameters, File $file = NULL) {
-    if ($file) {
-      $options = $this->buildMultipartPostOptions($parameters, $file);
-    } else {
-      $options = [RequestOptions::FORM_PARAMS => $parameters];
-    }
-
-    return $options;
-  }
-
-  /**
-   * @param Parameters $parameters
-   * @param File $file
-   * @return array
-   */
-  private function buildMultipartPostOptions(Parameters $parameters, File $file) {
-    $formParameters = [];
-
-    $formParameters[] = [
-      'name' => 'file',
-      'contents' => fopen($file->getPathname(), 'r'),
-      'filename' => $file->getFilename(),
-    ];
-
-    foreach ($parameters as $key => $value) {
-      $formParameters[] = ['name' => $key, 'contents' => $value];
-    }
-
-    $options = [RequestOptions::MULTIPART => $formParameters];
-
-    return $options;
   }
 }
