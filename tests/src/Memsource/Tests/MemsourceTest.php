@@ -38,8 +38,7 @@ class MemsourceTest extends MemsourceTestCase {
   public function loginShouldReturn401UnauthorizedResponseOnIncorrectCredentials() {
     $response = $this->memsource->login('userName', 'password');
 
-    $this->assertInstanceOf(JsonResponse::class, $response);
-    $this->assertEquals(Response::HTTP_UNAUTHORIZED, $response->getStatusCode());
+    $this->assertJsonResponse(Response::HTTP_UNAUTHORIZED, $response);
   }
 
   /**
