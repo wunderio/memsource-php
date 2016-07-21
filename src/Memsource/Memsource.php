@@ -171,13 +171,7 @@ class Memsource implements MemsourceInterface {
   public function postAsync($path, Parameters $parameters, File $file = NULL) {
     $options = $this->buildPostOptions($parameters, $file);
 
-    try {
-      $response = $this->client->postAsync($this->baseUrl . $path, $options);
-    } catch (ClientException $e) {
-      $response = $e->getResponse();
-    }
-
-    return $response;
+    return $this->client->postAsync($this->baseUrl . $path, $options);
   }
 
   /**
