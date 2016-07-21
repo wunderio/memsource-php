@@ -7,6 +7,9 @@ class Parameters {
   /** @var int */
   public $assignedTo;
 
+  /** @var $string */
+  public $callbackUrl;
+
   /** @var int */
   public $jobPart;
 

@@ -5,6 +5,7 @@ namespace Memsource;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\RequestOptions;
+use Memsource\API\Async\v2\Job\JobAsync;
 use Memsource\API\v2\Language\Language;
 use Memsource\API\v3\Auth\Auth;
 use Memsource\API\v3\Project\Project;
@@ -29,6 +30,9 @@ class Memsource implements MemsourceInterface {
   /** @var Job */
   private $job;
 
+  /** @var JobAsync */
+  private $jobAsync;
+
   /** @var Language */
   private $language;
 
@@ -52,6 +56,13 @@ class Memsource implements MemsourceInterface {
    */
   public function createJob(Parameters $parameters, File $file) {
     return $this->job->create($parameters, $file);
+  }
+
+  /**
+   * @inheritdoc
+   */
+  public function createJobAsync(Parameters $parameters, File $file) {
+    return $this->jobAsync->create($parameters, $file);
   }
 
   /**
@@ -142,6 +153,24 @@ class Memsource implements MemsourceInterface {
 
     try {
       $response = $this->client->post($this->baseUrl . $path, $options);
+    } catch (ClientException $e) {
+      $response = $e->getResponse();
+    }
+
+    return new JsonResponse($response->getBody(), $response->getStatusCode(), $response->getHeaders(), TRUE);
+  }
+
+  /**
+   * @param string $path
+   * @param Parameters $parameters
+   * @param File|NULL $file
+   * @return JsonResponse
+   */
+  public function postAsync($path, Parameters $parameters, File $file = NULL) {
+    $options = $this->buildPostOptions($parameters, $file);
+
+    try {
+      $response = $this->client->postAsync($this->baseUrl . $path, $options);
     } catch (ClientException $e) {
       $response = $e->getResponse();
     }
