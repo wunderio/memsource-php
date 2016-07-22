@@ -53,6 +53,12 @@ interface MemsourceInterface {
 
   /**
    * @param string $token
+   * @return JsonResponse
+   */
+  public function listBusinessUnits($token);
+
+  /**
+   * @param string $token
    * @param int $jobPart
    * @return JsonResponse
    */
