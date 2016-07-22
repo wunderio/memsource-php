@@ -8,6 +8,7 @@ use GuzzleHttp\Promise\PromiseInterface;
 use Memsource\API\Async\v2\Job\JobAsync;
 use Memsource\API\v2\Analysis\Analysis;
 use Memsource\API\v2\BusinessUnit\BusinessUnit;
+use Memsource\API\v2\Domain\Domain;
 use Memsource\API\v2\Language\Language;
 use Memsource\API\v3\Auth\Auth;
 use Memsource\API\v3\Project\Project;
@@ -35,6 +36,9 @@ class Memsource implements MemsourceInterface {
 
   /** @var Client */
   private $client;
+
+  /** @var Domain */
+  private $domain;
 
   /** @var Job */
   private $job;
@@ -64,6 +68,7 @@ class Memsource implements MemsourceInterface {
     $this->baseUrl = $baseUrl;
     $this->businessUnit = $this->getBusinessUnitService();
     $this->client = isset($client) ? $client : $this->getHttpClient();
+    $this->domain = $this->getDomainService();
     $this->job = $this->getJobService();
     $this->jobAsync = $this->getJobAsyncService();
     $this->language = $this->getLanguageService();
@@ -119,6 +124,13 @@ class Memsource implements MemsourceInterface {
    */
   public function listBusinessUnits($token) {
     return $this->businessUnit->listBusinessUnits($token);
+  }
+
+  /**
+   * @inheritdoc
+   */
+  public function listDomains($token) {
+    return $this->domain->listDomains($token);
   }
 
   /**
@@ -233,6 +245,13 @@ class Memsource implements MemsourceInterface {
    */
   protected function getBusinessUnitService() {
     return new BusinessUnit($this);
+  }
+
+  /**
+   * @return Domain
+   */
+  protected function getDomainService() {
+    return new Domain($this);
   }
 
   /**

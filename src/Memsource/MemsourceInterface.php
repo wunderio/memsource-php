@@ -59,6 +59,12 @@ interface MemsourceInterface {
 
   /**
    * @param string $token
+   * @return JsonResponse
+   */
+  public function listDomains($token);
+
+  /**
+   * @param string $token
    * @param int $jobPart
    * @return JsonResponse
    */
