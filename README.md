@@ -18,7 +18,8 @@ http://wiki.memsource.com/wiki/Memsource_API#Authentication
 
 Provide a user name and a password to `Memsource` constructor. An
 authentication attempt is done automatically. On success, a new `Memsource`
-instance is returned.
+instance is returned. An exception is thrown on failure. The response content
+is included in the exception message.
 
 ```php
 use Memsource\Memsource;
