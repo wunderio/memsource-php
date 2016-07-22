@@ -11,6 +11,7 @@ use Memsource\API\v2\BusinessUnit\BusinessUnit;
 use Memsource\API\v2\Domain\Domain;
 use Memsource\API\v2\Language\Language;
 use Memsource\API\v2\User\User;
+use Memsource\API\v2\WorkflowStep\WorkflowStep;
 use Memsource\API\v3\Auth\Auth;
 use Memsource\API\v3\Project\Project;
 use Memsource\API\v4\TranslationMemory\TranslationMemory;
@@ -62,6 +63,9 @@ class Memsource implements MemsourceInterface {
   /** @var User */
   private $user;
 
+  /** @var WorkflowStep */
+  private $workflowStep;
+
   /**
    * @param string $baseUrl
    * @param Client $client
@@ -80,6 +84,7 @@ class Memsource implements MemsourceInterface {
     $this->requestOptionsBuilder = $this->getRequestOptionsBuilder();
     $this->translationMemory = $this->getTranslationMemoryService();
     $this->user = $this->getUserService();
+    $this->workflowStep = $this->getWorkflowStepService();
   }
 
   /**
@@ -178,6 +183,13 @@ class Memsource implements MemsourceInterface {
    */
   public function listUsers($token) {
     return $this->user->listUsers($token);
+  }
+
+  /**
+   * @inheritdoc
+   */
+  public function listWorkflowSteps($token) {
+    return $this->workflowStep->listWorkflowSteps($token);
   }
 
   /**
@@ -322,5 +334,12 @@ class Memsource implements MemsourceInterface {
    */
   protected function getUserService() {
     return new User($this);
+  }
+
+  /**
+   * @return WorkflowStep
+   */
+  protected function getWorkflowStepService() {
+    return new WorkflowStep($this);
   }
 }

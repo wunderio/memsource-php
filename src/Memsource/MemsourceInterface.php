@@ -106,6 +106,12 @@ interface MemsourceInterface {
   public function listUsers($token);
 
   /**
+   * @param string $token
+   * @return JsonResponse
+   */
+  public function listWorkflowSteps($token);
+
+  /**
    * @param string $userName
    * @param string $password
    * @return JsonResponse
