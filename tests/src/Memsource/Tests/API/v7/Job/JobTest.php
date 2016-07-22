@@ -35,15 +35,12 @@ class JobTest extends MemsourceTestCase {
     $this->parameters = new Parameters();
     $this->parameters->project = 1;
     $this->parameters->targetLang = 'ja';
-    $this->parameters->token = 'token';
   }
 
   /**
    * @test
    */
   public function createShouldReturn401UnauthorizedResponseOnInvalidToken() {
-    $this->parameters->token = self::INVALID_TOKEN;
-
     $response = $this->job->create($this->parameters, $this->file);
 
     $this->assertJsonResponse(Response::HTTP_UNAUTHORIZED, $response);
@@ -53,7 +50,7 @@ class JobTest extends MemsourceTestCase {
    * @test
    */
   public function getCompletedFileShouldReturn401UnauthorizedResponseOnInvalidToken() {
-    $response = $this->job->getCompletedFile(self::INVALID_TOKEN, self::JOB_PART);
+    $response = $this->job->getCompletedFile(self::JOB_PART);
 
     $this->assertJsonResponse(Response::HTTP_UNAUTHORIZED, $response);
   }
@@ -62,7 +59,7 @@ class JobTest extends MemsourceTestCase {
    * @test
    */
   public function getJobShouldReturn401UnauthorizedResponseOnInvalidToken() {
-    $response = $this->job->getJob(self::INVALID_TOKEN, self::JOB_PART);
+    $response = $this->job->getJob(self::JOB_PART);
 
     $this->assertJsonResponse(Response::HTTP_UNAUTHORIZED, $response);
   }
@@ -72,7 +69,6 @@ class JobTest extends MemsourceTestCase {
    */
   public function listByProjectShouldReturn401UnauthorizedResponseOnInvalidToken() {
     $response = $this->job->listByProject(
-      self::INVALID_TOKEN,
       self::PAGE,
       self::PROJECT,
       self::WORKFLOW_LEVEL,
@@ -87,7 +83,7 @@ class JobTest extends MemsourceTestCase {
    * @test
    */
   public function listJobsShouldReturn401UnauthorizedResponseOnInvalidToken() {
-    $response = $this->job->listJobs(self::INVALID_TOKEN, self::JOB_PART);
+    $response = $this->job->listJobs(self::JOB_PART);
 
     $this->assertJsonResponse(Response::HTTP_UNAUTHORIZED, $response);
   }

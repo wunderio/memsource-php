@@ -24,54 +24,46 @@ interface MemsourceInterface {
   public function createJobAsync(Parameters $parameters, File $file);
 
   /**
-   * @param string $token
    * @param int $jobPart
    * @return JsonResponse
    */
-  public function getCompletedFile($token, $jobPart);
+  public function getCompletedFile($jobPart);
 
   /**
-   * @param $token
    * @param $jobPart
    * @return JsonResponse
    */
-  public function getJob($token, $jobPart);
+  public function getJob($jobPart);
 
   /**
-   * @param string $token
    * @param int $project
    * @return JsonResponse
    */
-  public function getProject($token, $project);
+  public function getProject($project);
 
   /**
-   * @param string $token
    * @param int $project
    * @return JsonResponse
    */
-  public function listAnalysesByProject($token, $project);
+  public function listAnalysesByProject($project);
 
   /**
-   * @param string $token
    * @return JsonResponse
    */
-  public function listBusinessUnits($token);
+  public function listBusinessUnits();
 
   /**
-   * @param string $token
    * @return JsonResponse
    */
-  public function listDomains($token);
+  public function listDomains();
 
   /**
-   * @param string $token
    * @param int $jobPart
    * @return JsonResponse
    */
-  public function listJobs($token, $jobPart);
+  public function listJobs($jobPart);
 
   /**
-   * @param string $token
    * @param int|null $page
    * @param int $project
    * @param int|null $workflowLevel
@@ -79,49 +71,42 @@ interface MemsourceInterface {
    * @param string|null $status @see JobFilter
    * @return JsonResponse
    */
-  public function listJobsByProject($token, $page = NULL, $project, $workflowLevel = NULL, $assignedTo = NULL, $status = NULL);
+  public function listJobsByProject($page = NULL, $project, $workflowLevel = NULL, $assignedTo = NULL, $status = NULL);
 
   /**
-   * @param string $token
    * @return JsonResponse
    */
-  public function listMachineTranslateSettings($token);
+  public function listMachineTranslateSettings();
 
   /**
-   * @param string $token
    * @return JsonResponse
    */
-  public function listProjects($token);
+  public function listProjects();
 
   /**
-   * @param string $token
    * @return JsonResponse
    */
-  public function listSupportedLanguages($token);
+  public function listSupportedLanguages();
 
   /**
-   * @param string $token
    * @return JsonResponse
    */
-  public function listTranslationMemories($token);
+  public function listTranslationMemories();
 
   /**
-   * @param string $token
    * @return JsonResponse
    */
-  public function listUsers($token);
+  public function listUsers();
 
   /**
-   * @param string $token
    * @return JsonResponse
    */
-  public function listVendors($token);
+  public function listVendors();
 
   /**
-   * @param string $token
    * @return JsonResponse
    */
-  public function listWorkflowSteps($token);
+  public function listWorkflowSteps();
 
   /**
    * @param string $userName
@@ -131,21 +116,18 @@ interface MemsourceInterface {
   public function login($userName, $password);
 
   /**
-   * @param string $token
    * @param string $userName
    * @return JsonResponse
    */
-  public function loginOther($token, $userName);
+  public function loginOther($userName);
 
   /**
-   * @param string $token
    * @return JsonResponse
    */
-  public function logout($token);
+  public function logout();
 
   /**
-   * @param string $token
    * @return JsonResponse
    */
-  public function whoAmI($token);
+  public function whoAmI();
 }

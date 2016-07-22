@@ -36,7 +36,6 @@ class JobAsyncTest extends MemsourceTestCase {
     $this->parameters = new Parameters();
     $this->parameters->project = 1;
     $this->parameters->targetLang = 'ja';
-    $this->parameters->token = 'token';
     $this->parameters->callbackUrl = self::CALLBACK_URL;
   }
 
@@ -44,8 +43,6 @@ class JobAsyncTest extends MemsourceTestCase {
    * @test
    */
   public function createShouldReturnPromise() {
-    $this->parameters->token = self::INVALID_TOKEN;
-
     $response = $this->jobAsync->create($this->parameters, $this->file);
 
     $this->assertInstanceOf(PromiseInterface::class, $response);

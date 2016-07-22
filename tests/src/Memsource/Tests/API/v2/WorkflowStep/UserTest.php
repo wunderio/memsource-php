@@ -21,7 +21,7 @@ class WorkflowStepTest extends MemsourceTestCase {
    * @test
    */
   public function listWorkflowStepsShouldReturn401UnauthorizedResponseOnInvalidToken() {
-    $response = $this->workflowStep->listWorkflowSteps(self::INVALID_TOKEN);
+    $response = $this->workflowStep->listWorkflowSteps();
 
     $this->assertJsonResponse(Response::HTTP_UNAUTHORIZED, $response);
   }

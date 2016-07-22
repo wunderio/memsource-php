@@ -14,7 +14,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 class MemsourceTest extends MemsourceTestCase {
 
+  const PASSWORD = 'password';
   const PATH = 'http://www.example.com/path';
+  const USER_NAME = 'userName';
 
   /** @var Client */
   private $client;
@@ -29,14 +31,20 @@ class MemsourceTest extends MemsourceTestCase {
     $this->client->post(Argument::any(), Argument::any())->willReturn($this->response);
     $this->client->postAsync(Argument::any(), Argument::any())->willReturn(new Promise());
 
-    $this->memsource = new Memsource(self::MEMSOURCE_TEST_BASE_URL, $this->client->reveal());
+    $this->memsource = new Memsource(
+      self::USER_NAME,
+      self::PASSWORD,
+      self::INVALID_TOKEN,
+      self::MEMSOURCE_TEST_BASE_URL,
+      $this->client->reveal()
+    );
   }
 
   /**
    * @test
    */
   public function loginShouldReturn401UnauthorizedResponseOnInvalidCredentials() {
-    $response = $this->memsource->login('userName', 'password');
+    $response = $this->memsource->login(self::USER_NAME, self::PASSWORD);
 
     $this->assertJsonResponse(Response::HTTP_UNAUTHORIZED, $response);
   }

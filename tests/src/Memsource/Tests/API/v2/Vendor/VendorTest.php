@@ -21,7 +21,7 @@ class VendorTest extends MemsourceTestCase {
    * @test
    */
   public function listVendorsShouldReturn401UnauthorizedResponseOnInvalidToken() {
-    $response = $this->vendor->listVendors(self::INVALID_TOKEN);
+    $response = $this->vendor->listVendors();
 
     $this->assertJsonResponse(Response::HTTP_UNAUTHORIZED, $response);
   }

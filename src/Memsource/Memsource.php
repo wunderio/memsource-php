@@ -62,6 +62,9 @@ class Memsource implements MemsourceInterface {
   /** @var RequestOptionsBuilder */
   private $requestOptionsBuilder;
 
+  /** @var string */
+  private $token;
+
   /** @var TranslationMemory */
   private $translationMemory;
 
@@ -75,10 +78,21 @@ class Memsource implements MemsourceInterface {
   private $workflowStep;
 
   /**
-   * @param string $baseUrl
+   * Automatically tries to authenticate with the given user name and password
+   * if token is empty. Skips authentication if the token is not empty.
+   *
+   * @param string|null $userName Required if token is empty.
+   * @param string|null $password Required if token is empty.
+   * @param string|null $token Required if both user name and password are empty.
+   * @param string|null $baseUrl
    * @param Client $client
+   * @throws \Exception if user name, password and token are all empty.
    */
-  public function __construct($baseUrl = self::DEFAULT_BASE_URL, Client $client = NULL) {
+  public function __construct($userName = NULL, $password = NULL, $token = NULL, $baseUrl = self::DEFAULT_BASE_URL, Client $client = NULL) {
+    if (empty($userName) && empty($password) && empty($token)) {
+      throw new \Exception('User name and password are required when token is empty.');
+    }
+
     $this->analysis = $this->getAnalysisService();
     $this->auth = $this->getAuthService();
     $this->baseUrl = $baseUrl;
@@ -91,6 +105,7 @@ class Memsource implements MemsourceInterface {
     $this->machineTranslateSettings = $this->getMachineTranslateSettingsService();
     $this->project = $this->getProjectService();
     $this->requestOptionsBuilder = $this->getRequestOptionsBuilder();
+    $this->token = empty($token) ? $this->getToken($userName, $password) : $token;
     $this->translationMemory = $this->getTranslationMemoryService();
     $this->user = $this->getUserService();
     $this->vendor = $this->getVendorService();
@@ -114,106 +129,106 @@ class Memsource implements MemsourceInterface {
   /**
    * @inheritdoc
    */
-  public function getJob($token, $jobPart) {
-    return $this->job->getJob($token, $jobPart);
+  public function getJob($jobPart) {
+    return $this->job->getJob($jobPart);
   }
 
   /**
    * @inheritdoc
    */
-  public function getCompletedFile($token, $jobPart) {
-    return $this->job->getCompletedFile($token, $jobPart);
+  public function getCompletedFile($jobPart) {
+    return $this->job->getCompletedFile($jobPart);
   }
 
   /**
    * @inheritdoc
    */
-  public function getProject($token, $project) {
-    return $this->project->getProject($token, $project);
+  public function getProject($project) {
+    return $this->project->getProject($project);
   }
 
   /**
    * @inheritdoc
    */
-  public function listAnalysesByProject($token, $project) {
-    return $this->analysis->listByProject($token, $project);
+  public function listAnalysesByProject($project) {
+    return $this->analysis->listByProject($project);
   }
 
   /**
    * @inheritdoc
    */
-  public function listBusinessUnits($token) {
-    return $this->businessUnit->listBusinessUnits($token);
+  public function listBusinessUnits() {
+    return $this->businessUnit->listBusinessUnits();
   }
 
   /**
    * @inheritdoc
    */
-  public function listDomains($token) {
-    return $this->domain->listDomains($token);
+  public function listDomains() {
+    return $this->domain->listDomains();
   }
 
   /**
    * @inheritdoc
    */
-  public function listJobs($token, $jobPart) {
-    return $this->job->listJobs($token, $jobPart);
+  public function listJobs($jobPart) {
+    return $this->job->listJobs($jobPart);
   }
 
   /**
    * @inheritdoc
    */
-  public function listJobsByProject($token, $page = NULL, $project, $workflowLevel = NULL, $assignedTo = NULL, $status = NULL) {
-    return $this->job->listByProject($token, $page, $project, $workflowLevel, $assignedTo, $status);
+  public function listJobsByProject($page = NULL, $project, $workflowLevel = NULL, $assignedTo = NULL, $status = NULL) {
+    return $this->job->listByProject($page, $project, $workflowLevel, $assignedTo, $status);
   }
 
   /**
    * @inheritdoc
    */
-  public function listMachineTranslateSettings($token) {
-    return $this->machineTranslateSettings->listMachineTranslateSettings($token);
+  public function listMachineTranslateSettings() {
+    return $this->machineTranslateSettings->listMachineTranslateSettings();
   }
 
   /**
    * @inheritdoc
    */
-  public function listProjects($token) {
-    return $this->project->listProjects($token);
+  public function listProjects() {
+    return $this->project->listProjects();
   }
 
   /**
    * @inheritdoc
    */
-  public function listSupportedLanguages($token) {
-    return $this->language->listSupportedLanguages($token);
+  public function listSupportedLanguages() {
+    return $this->language->listSupportedLanguages();
   }
 
   /**
    * @inheritdoc
    */
-  public function listTranslationMemories($token) {
-    return $this->translationMemory->listTranslationMemories($token);
+  public function listTranslationMemories() {
+    return $this->translationMemory->listTranslationMemories();
   }
 
   /**
    * @inheritdoc
    */
-  public function listUsers($token) {
-    return $this->user->listUsers($token);
+  public function listUsers() {
+    return $this->user->listUsers();
   }
 
   /**
    * @inheritdoc
    */
-  public function listVendors($token) {
-    return $this->vendor->listVendors($token);
+  public function listVendors() {
+    return $this->vendor->listVendors();
   }
 
   /**
    * @inheritdoc
    */
-  public function listWorkflowSteps($token) {
-    return $this->workflowStep->listWorkflowSteps($token);
+  public function listWorkflowSteps() {
+    return $this->workflowStep->listWorkflowSteps();
   }
 
   /**
@@ -226,31 +241,33 @@ class Memsource implements MemsourceInterface {
   /**
    * @inheritdoc
    */
-  public function loginOther($token, $userName) {
-    return $this->auth->loginOther($token, $userName);
+  public function loginOther($userName) {
+    return $this->auth->loginOther($userName);
   }
 
   /**
    * @inheritdoc
    */
-  public function logout($token) {
-    return $this->auth->logout($token);
+  public function logout() {
+    return $this->auth->logout();
   }
 
   /**
    * @inheritdoc
    */
-  public function whoAmI($token) {
-    return $this->auth->whoAmI($token);
+  public function whoAmI() {
+    return $this->auth->whoAmI();
   }
 
   /**
    * @param string $path
-   * @param Parameters $parameters
-   * @param File|NULL $file
+   * @param Parameters|null $parameters
+   * @param File|null $file
    * @return JsonResponse
    */
-  public function post($path, Parameters $parameters, File $file = NULL) {
+  public function post($path, Parameters $parameters = NULL, File $file = NULL) {
+    $parameters = isset($parameters) ? $parameters : new Parameters();
+    $parameters->token = $this->token;
     $options = $this->requestOptionsBuilder->buildPostOptions($parameters, $file);
 
     try {
@@ -265,10 +282,12 @@ class Memsource implements MemsourceInterface {
   /**
    * @param string $path
    * @param Parameters $parameters
-   * @param File|NULL $file
+   * @param File|null $file
    * @return PromiseInterface
    */
-  public function postAsync($path, Parameters $parameters, File $file = NULL) {
+  public function postAsync($path, Parameters $parameters = NULL, File $file = NULL) {
+    $parameters = isset($parameters) ? $parameters : new Parameters();
+    $parameters->token = $this->token;
     $options = $this->requestOptionsBuilder->buildPostOptions($parameters, $file);
 
     return $this->client->postAsync($this->baseUrl . $path, $options);
@@ -379,5 +398,21 @@ class Memsource implements MemsourceInterface {
    */
   protected function getWorkflowStepService() {
     return new WorkflowStep($this);
+  }
+
+  /**
+   * @param string $userName
+   * @param string $password
+   * @throws \Exception if fails to get the token from the response.
+   */
+  private function getToken($userName, $password) {
+    $jsonResponse = $this->auth->login($userName, $password);
+    $response = json_decode($jsonResponse->getContent());
+
+    if (empty($response->token)) {
+      throw new \Exception("Authentication failed: {$jsonResponse->getContent()}");
+    }
+
+    return $response->token;
   }
 }

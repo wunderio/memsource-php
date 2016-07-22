@@ -19,7 +19,7 @@ class TranslationMemoryTest extends MemsourceTestCase {
    * @test
    */
   public function listProjectsShouldReturn401UnauthorizedResponseOnInvalidToken() {
-    $response = $this->translationMemory->listTranslationMemories(self::INVALID_TOKEN);
+    $response = $this->translationMemory->listTranslationMemories();
 
     $this->assertJsonResponse(Response::HTTP_UNAUTHORIZED, $response);
   }

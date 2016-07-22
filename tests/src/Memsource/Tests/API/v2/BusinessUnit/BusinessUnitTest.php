@@ -21,7 +21,7 @@ class BusinessUnitTest extends MemsourceTestCase {
    * @test
    */
   public function listBusinessUnitsShouldReturn401UnauthorizedResponseOnInvalidToken() {
-    $response = $this->businessUnit->listBusinessUnits(self::INVALID_TOKEN);
+    $response = $this->businessUnit->listBusinessUnits();
 
     $this->assertJsonResponse(Response::HTTP_UNAUTHORIZED, $response);
   }

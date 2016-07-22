@@ -21,7 +21,7 @@ class UserTest extends MemsourceTestCase {
    * @test
    */
   public function listUsersShouldReturn401UnauthorizedResponseOnInvalidToken() {
-    $response = $this->user->listUsers(self::INVALID_TOKEN);
+    $response = $this->user->listUsers();
 
     $this->assertJsonResponse(Response::HTTP_UNAUTHORIZED, $response);
   }

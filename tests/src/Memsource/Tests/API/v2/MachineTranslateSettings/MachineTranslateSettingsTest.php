@@ -21,7 +21,7 @@ class MachineTranslateSettingsTest extends MemsourceTestCase {
    * @test
    */
   public function listMachineTranslateSettingsShouldReturn401UnauthorizedResponseOnInvalidToken() {
-    $response = $this->machineTranslateSettings->listMachineTranslateSettings(self::INVALID_TOKEN);
+    $response = $this->machineTranslateSettings->listMachineTranslateSettings();
 
     $this->assertJsonResponse(Response::HTTP_UNAUTHORIZED, $response);
   }

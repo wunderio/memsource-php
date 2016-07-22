@@ -12,13 +12,11 @@ class Analysis extends BaseApi {
   const PATH_LIST_BY_PROJECT = self::PATH_BASE . 'listByProject';
 
   /**
-   * @param string $token
    * @param int $project
    * @return JsonResponse
    */
-  public function listByProject($token, $project) {
+  public function listByProject($project) {
     $parameters = new Parameters();
-    $parameters->token = $token;
     $parameters->project = $project;
 
     return $this->memsource->post(self::PATH_LIST_BY_PROJECT, $parameters);

@@ -21,7 +21,7 @@ class AnalysisTest extends MemsourceTestCase {
    * @test
    */
   public function listByProjectShouldReturn401UnauthorizedResponseOnInvalidToken() {
-    $response = $this->analysis->listByProject(self::INVALID_TOKEN, self::PROJECT);
+    $response = $this->analysis->listByProject(self::PROJECT);
 
     $this->assertJsonResponse(Response::HTTP_UNAUTHORIZED, $response);
   }

@@ -26,33 +26,28 @@ class Job extends BaseApi {
   }
 
   /**
-   * @param string $token
    * @param int $jobPart
    * @return JsonResponse
    */
-  public function getCompletedFile($token, $jobPart) {
+  public function getCompletedFile($jobPart) {
     $parameters = new Parameters();
-    $parameters->token = $token;
     $parameters->jobPart = $jobPart;
 
     return $this->memsource->post(self::PATH_GET_COMPLETED_FILE, $parameters);
   }
 
   /**
-   * @param string $token
    * @param int $jobPart
    * @return JsonResponse
    */
-  public function getJob($token, $jobPart) {
+  public function getJob($jobPart) {
     $parameters = new Parameters();
-    $parameters->token = $token;
     $parameters->jobPart = $jobPart;
 
     return $this->memsource->post(self::PATH_GET_JOB, $parameters);
   }
 
   /**
-   * @param string $token
    * @param int|null $page
    * @param int $project
    * @param int|null $workflowLevel
@@ -60,9 +55,8 @@ class Job extends BaseApi {
    * @param string|null $status @see JobFilter
    * @return JsonResponse
    */
-  public function listByProject($token, $page = NULL, $project, $workflowLevel = NULL, $assignedTo = NULL, $status = NULL) {
+  public function listByProject($page = NULL, $project, $workflowLevel = NULL, $assignedTo = NULL, $status = NULL) {
     $parameters = new Parameters();
-    $parameters->token = $token;
     $parameters->page = $page;
     $parameters->project = $project;
     $parameters->workflowLevel = $workflowLevel;
@@ -73,13 +67,11 @@ class Job extends BaseApi {
   }
 
   /**
-   * @param string $token
    * @param int $jobPart
    * @return JsonResponse
    */
-  public function listJobs($token, $jobPart) {
+  public function listJobs($jobPart) {
     $parameters = new Parameters();
-    $parameters->token = $token;
     $parameters->jobPart = $jobPart;
 
     return $this->memsource->post(self::PATH_LIST_JOBS, $parameters);

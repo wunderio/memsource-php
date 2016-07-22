@@ -21,7 +21,7 @@ class DomainTest extends MemsourceTestCase {
    * @test
    */
   public function listDomainsShouldReturn401UnauthorizedResponseOnInvalidToken() {
-    $response = $this->domain->listDomains(self::INVALID_TOKEN);
+    $response = $this->domain->listDomains();
 
     $this->assertJsonResponse(Response::HTTP_UNAUTHORIZED, $response);
   }

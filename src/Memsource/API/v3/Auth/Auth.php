@@ -28,37 +28,27 @@ class Auth extends BaseApi {
   }
 
   /**
-   * @param string $token
    * @param string $userName
    * @return JsonResponse
    */
-  public function loginOther($token, $userName) {
+  public function loginOther($userName) {
     $parameters = new Parameters();
-    $parameters->token = $token;
     $parameters->userName = $userName;
 
     return $this->memsource->post(self::PATH_LOGIN_OTHER, $parameters);
   }
 
   /**
-   * @param string $token
    * @return JsonResponse
    */
-  public function logout($token) {
-    $parameters = new Parameters();
-    $parameters->token = $token;
-
-    return $this->memsource->post(self::PATH_LOGOUT, $parameters);
+  public function logout() {
+    return $this->memsource->post(self::PATH_LOGOUT);
   }
 
   /**
-   * @param string $token
    * @return JsonResponse
    */
-  public function whoAmI($token) {
-    $parameters = new Parameters();
-    $parameters->token = $token;
-
-    return $this->memsource->post(self::PATH_WHO_AM_I, $parameters);
+  public function whoAmI() {
+    return $this->memsource->post(self::PATH_WHO_AM_I);
   }
 }

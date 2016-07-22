@@ -28,7 +28,7 @@ class AuthTest extends MemsourceTestCase {
    * @test
    */
   public function loginOtherShouldReturn401UnauthorizedResponseOnInvalidToken() {
-    $response = $this->auth->loginOther(self::INVALID_TOKEN, 'token');
+    $response = $this->auth->loginOther('user-name');
 
     $this->assertJsonResponse(Response::HTTP_UNAUTHORIZED, $response);
   }
@@ -37,7 +37,7 @@ class AuthTest extends MemsourceTestCase {
    * @test
    */
   public function logoutShouldReturn401UnauthorizedResponseOnInvalidToken() {
-    $response = $this->auth->logout(self::INVALID_TOKEN);
+    $response = $this->auth->logout();
 
     $this->assertJsonResponse(Response::HTTP_UNAUTHORIZED, $response);
   }
@@ -46,7 +46,7 @@ class AuthTest extends MemsourceTestCase {
    * @test
    */
   public function whoAmIShouldReturn401UnauthorizedResponseOnInvalidToken() {
-    $response = $this->auth->whoAmI(self::INVALID_TOKEN);
+    $response = $this->auth->whoAmI();
 
     $this->assertJsonResponse(Response::HTTP_UNAUTHORIZED, $response);
   }
