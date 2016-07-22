@@ -45,7 +45,7 @@ use Memsource\Memsource;
 $token = get_token_from_your_token_storage();
 
 if (isset($token) {
-  $memsource = new Memsource(NULL, NULL, 'token');
+  $memsource = new Memsource(NULL, NULL, $token);
 }
 ```
 
