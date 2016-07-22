@@ -3,24 +3,14 @@
 namespace Memsource\API\Async\v2\Job;
 
 use GuzzleHttp\Promise\PromiseInterface;
-use Memsource\Memsource;
+use Memsource\API\BaseApi;
 use Memsource\Model\Parameters;
 use Symfony\Component\HttpFoundation\File\File;
 
-class JobAsync {
+class JobAsync extends BaseApi {
 
   const PATH_BASE = 'web/api/async/v2/job/';
   const PATH_CREATE = self::PATH_BASE . 'create';
-
-  /** @var Memsource */
-  private $memsource;
-
-  /**
-   * @param Memsource $memsource
-   */
-  public function __construct(Memsource $memsource) {
-    $this->memsource = $memsource;
-  }
 
   /**
    * @param Parameters $parameters

@@ -2,24 +2,14 @@
 
 namespace Memsource\API\v2\User;
 
-use Memsource\Memsource;
+use Memsource\API\BaseApi;
 use Memsource\Model\Parameters;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-class User {
+class User extends BaseApi {
 
   const PATH_BASE = '/web/api/v2/user/';
   const PATH_LIST = self::PATH_BASE . 'list';
-
-  /** @var Memsource */
-  private $memsource;
-
-  /**
-   * @param Memsource $memsource
-   */
-  public function __construct(Memsource $memsource) {
-    $this->memsource = $memsource;
-  }
 
   /**
    * @param string $token
