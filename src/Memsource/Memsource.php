@@ -6,6 +6,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Promise\PromiseInterface;
 use Memsource\API\Async\v2\Job\JobAsync;
+use Memsource\API\v2\Analysis\Analysis;
 use Memsource\API\v2\Language\Language;
 use Memsource\API\v3\Auth\Auth;
 use Memsource\API\v3\Project\Project;
@@ -18,6 +19,9 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 class Memsource implements MemsourceInterface {
 
   const DEFAULT_BASE_URL = 'https://cloud.memsource.com/';
+
+  /** @var Analysis */
+  private $analysis;
 
   /** @var Auth */
   private $auth;
@@ -51,6 +55,7 @@ class Memsource implements MemsourceInterface {
    * @param Client $client
    */
   public function __construct($baseUrl = self::DEFAULT_BASE_URL, Client $client = NULL) {
+    $this->analysis = $this->getAnalysisService();
     $this->auth = $this->getAuthService();
     $this->baseUrl = $baseUrl;
     $this->client = isset($client) ? $client : $this->getHttpClient();
@@ -95,6 +100,13 @@ class Memsource implements MemsourceInterface {
    */
   public function getProject($token, $project) {
     return $this->project->getProject($token, $project);
+  }
+
+  /**
+   * @inheritdoc
+   */
+  public function listAnalysesByProject($token, $project) {
+    return $this->analysis->listByProject($token, $project);
   }
 
   /**
@@ -188,6 +200,13 @@ class Memsource implements MemsourceInterface {
     $options = $this->requestOptionsBuilder->buildPostOptions($parameters, $file);
 
     return $this->client->postAsync($this->baseUrl . $path, $options);
+  }
+
+  /**
+   * @return Analysis
+   */
+  protected function getAnalysisService() {
+    return new Analysis($this);
   }
 
   /**
