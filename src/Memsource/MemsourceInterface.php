@@ -85,6 +85,12 @@ interface MemsourceInterface {
    * @param string $token
    * @return JsonResponse
    */
+  public function listMachineTranslateSettings($token);
+
+  /**
+   * @param string $token
+   * @return JsonResponse
+   */
   public function listProjects($token);
 
   /**

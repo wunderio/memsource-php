@@ -10,6 +10,7 @@ use Memsource\API\v2\Analysis\Analysis;
 use Memsource\API\v2\BusinessUnit\BusinessUnit;
 use Memsource\API\v2\Domain\Domain;
 use Memsource\API\v2\Language\Language;
+use Memsource\API\v2\MachineTranslateSettings\MachineTranslateSettings;
 use Memsource\API\v2\User\User;
 use Memsource\API\v2\Vendor\Vendor;
 use Memsource\API\v2\WorkflowStep\WorkflowStep;
@@ -52,6 +53,9 @@ class Memsource implements MemsourceInterface {
   /** @var Language */
   private $language;
 
+  /** @var MachineTranslateSettings */
+  private $machineTranslateSettings;
+
   /** @var Project */
   private $project;
 
@@ -84,6 +88,7 @@ class Memsource implements MemsourceInterface {
     $this->job = $this->getJobService();
     $this->jobAsync = $this->getJobAsyncService();
     $this->language = $this->getLanguageService();
+    $this->machineTranslateSettings = $this->getMachineTranslateSettingsService();
     $this->project = $this->getProjectService();
     $this->requestOptionsBuilder = $this->getRequestOptionsBuilder();
     $this->translationMemory = $this->getTranslationMemoryService();
@@ -160,6 +165,13 @@ class Memsource implements MemsourceInterface {
    */
   public function listJobsByProject($token, $page = NULL, $project, $workflowLevel = NULL, $assignedTo = NULL, $status = NULL) {
     return $this->job->listByProject($token, $page, $project, $workflowLevel, $assignedTo, $status);
+  }
+
+  /**
+   * @inheritdoc
+   */
+  public function listMachineTranslateSettings($token) {
+    return $this->machineTranslateSettings->listMachineTranslateSettings($token);
   }
 
   /**
@@ -318,6 +330,13 @@ class Memsource implements MemsourceInterface {
    */
   protected function getLanguageService() {
     return new Language($this);
+  }
+
+  /**
+   * @return MachineTranslateSettings
+   */
+  protected function getMachineTranslateSettingsService() {
+    return new MachineTranslateSettings($this);
   }
 
   /**
