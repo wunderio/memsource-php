@@ -41,8 +41,8 @@ class JobTest extends MemsourceTestCase {
   /**
    * @test
    */
-  public function createShouldReturn401UnauthorizedResponseOnIncorrectToken() {
-    $this->parameters->token = self::INCORRECT_TOKEN;
+  public function createShouldReturn401UnauthorizedResponseOnInvalidToken() {
+    $this->parameters->token = self::INVALID_TOKEN;
 
     $response = $this->job->create($this->parameters, $this->file);
 
@@ -52,8 +52,8 @@ class JobTest extends MemsourceTestCase {
   /**
    * @test
    */
-  public function getCompletedFileShouldReturn401UnauthorizedResponseOnIncorrectToken() {
-    $response = $this->job->getCompletedFile(self::INCORRECT_TOKEN, self::JOB_PART);
+  public function getCompletedFileShouldReturn401UnauthorizedResponseOnInvalidToken() {
+    $response = $this->job->getCompletedFile(self::INVALID_TOKEN, self::JOB_PART);
 
     $this->assertJsonResponse(Response::HTTP_UNAUTHORIZED, $response);
   }
@@ -61,8 +61,8 @@ class JobTest extends MemsourceTestCase {
   /**
    * @test
    */
-  public function getJobShouldReturn401UnauthorizedResponseOnIncorrectToken() {
-    $response = $this->job->getJob(self::INCORRECT_TOKEN, self::JOB_PART);
+  public function getJobShouldReturn401UnauthorizedResponseOnInvalidToken() {
+    $response = $this->job->getJob(self::INVALID_TOKEN, self::JOB_PART);
 
     $this->assertJsonResponse(Response::HTTP_UNAUTHORIZED, $response);
   }
@@ -70,9 +70,9 @@ class JobTest extends MemsourceTestCase {
   /**
    * @test
    */
-  public function listByProjectShouldReturn401UnauthorizedResponseOnIncorrectToken() {
+  public function listByProjectShouldReturn401UnauthorizedResponseOnInvalidToken() {
     $response = $this->job->listByProject(
-      self::INCORRECT_TOKEN,
+      self::INVALID_TOKEN,
       self::PAGE,
       self::PROJECT,
       self::WORKFLOW_LEVEL,
@@ -86,8 +86,8 @@ class JobTest extends MemsourceTestCase {
   /**
    * @test
    */
-  public function listJobsShouldReturn401UnauthorizedResponseOnIncorrectToken() {
-    $response = $this->job->listJobs(self::INCORRECT_TOKEN, self::JOB_PART);
+  public function listJobsShouldReturn401UnauthorizedResponseOnInvalidToken() {
+    $response = $this->job->listJobs(self::INVALID_TOKEN, self::JOB_PART);
 
     $this->assertJsonResponse(Response::HTTP_UNAUTHORIZED, $response);
   }

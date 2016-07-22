@@ -44,7 +44,7 @@ class JobAsyncTest extends MemsourceTestCase {
    * @test
    */
   public function createShouldReturnPromise() {
-    $this->parameters->token = self::INCORRECT_TOKEN;
+    $this->parameters->token = self::INVALID_TOKEN;
 
     $response = $this->jobAsync->create($this->parameters, $this->file);
 

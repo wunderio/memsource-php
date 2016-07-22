@@ -20,8 +20,8 @@ class ProjectTest extends MemsourceTestCase {
   /**
    * @test
    */
-  public function getProjectShouldReturn401UnauthorizedResponseOnIncorrectToken() {
-    $response = $this->project->getProject(self::INCORRECT_TOKEN, self::PROJECT);
+  public function getProjectShouldReturn401UnauthorizedResponseOnInvalidToken() {
+    $response = $this->project->getProject(self::INVALID_TOKEN, self::PROJECT);
 
     $this->assertJsonResponse(Response::HTTP_UNAUTHORIZED, $response);
   }
@@ -29,8 +29,8 @@ class ProjectTest extends MemsourceTestCase {
   /**
    * @test
    */
-  public function listProjectsShouldReturn401UnauthorizedResponseOnIncorrectToken() {
-    $response = $this->project->listProjects(self::INCORRECT_TOKEN);
+  public function listProjectsShouldReturn401UnauthorizedResponseOnInvalidToken() {
+    $response = $this->project->listProjects(self::INVALID_TOKEN);
 
     $this->assertJsonResponse(Response::HTTP_UNAUTHORIZED, $response);
   }

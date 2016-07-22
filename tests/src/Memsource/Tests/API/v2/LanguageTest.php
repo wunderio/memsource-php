@@ -20,8 +20,8 @@ class LanguageTest extends MemsourceTestCase {
   /**
    * @test
    */
-  public function listSupportedLanguagesShouldReturn401UnauthorizedResponseOnIncorrectToken() {
-    $response = $this->language->listSupportedLanguages(self::INCORRECT_TOKEN);
+  public function listSupportedLanguagesShouldReturn401UnauthorizedResponseOnInvalidToken() {
+    $response = $this->language->listSupportedLanguages(self::INVALID_TOKEN);
 
     $this->assertJsonResponse(Response::HTTP_UNAUTHORIZED, $response);
   }
