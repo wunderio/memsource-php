@@ -105,11 +105,18 @@ class Memsource implements MemsourceInterface {
     $this->machineTranslateSettings = $this->getMachineTranslateSettingsService();
     $this->project = $this->getProjectService();
     $this->requestOptionsBuilder = $this->getRequestOptionsBuilder();
-    $this->token = empty($token) ? $this->getToken($userName, $password) : $token;
+    $this->token = empty($token) ? $this->loginAndGetToken($userName, $password) : $token;
     $this->translationMemory = $this->getTranslationMemoryService();
     $this->user = $this->getUserService();
     $this->vendor = $this->getVendorService();
     $this->workflowStep = $this->getWorkflowStepService();
+  }
+
+  /**
+   * @return null|string
+   */
+  public function getToken() {
+    return $this->token;
   }
 
   /**
@@ -405,7 +412,7 @@ class Memsource implements MemsourceInterface {
    * @param string $password
    * @throws \Exception if fails to get the token from the response.
    */
-  private function getToken($userName, $password) {
+  private function loginAndGetToken($userName, $password) {
     $jsonResponse = $this->auth->login($userName, $password);
     $response = json_decode($jsonResponse->getContent());
 
