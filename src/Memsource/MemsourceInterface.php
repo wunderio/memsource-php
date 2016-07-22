@@ -109,6 +109,12 @@ interface MemsourceInterface {
    * @param string $token
    * @return JsonResponse
    */
+  public function listVendors($token);
+
+  /**
+   * @param string $token
+   * @return JsonResponse
+   */
   public function listWorkflowSteps($token);
 
   /**
