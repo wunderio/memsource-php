@@ -16,11 +16,9 @@
     }
   ],
   "autoload": {
-    "psr-0": {"Memsource\\": "src/"},
-    "psr-4": {"Memsource\\": "src/"}
+    "psr-4": {"Memsource\\": "src/Memsource"}
   },
   "autoload-dev": {
-    "psr-0": {"Memsource\\Tests\\": "tests/src/"},
-    "psr-4": {"Memsource\\Tests\\": "tests/src/"}
+    "psr-4": {"Memsource\\Tests\\": "tests/src/Memsource/Tests"}
   }
 }
