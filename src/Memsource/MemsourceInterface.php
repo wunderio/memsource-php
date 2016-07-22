@@ -100,6 +100,12 @@ interface MemsourceInterface {
   public function listTranslationMemories($token);
 
   /**
+   * @param string $token
+   * @return JsonResponse
+   */
+  public function listUsers($token);
+
+  /**
    * @param string $userName
    * @param string $password
    * @return JsonResponse

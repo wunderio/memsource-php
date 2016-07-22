@@ -10,6 +10,7 @@ use Memsource\API\v2\Analysis\Analysis;
 use Memsource\API\v2\BusinessUnit\BusinessUnit;
 use Memsource\API\v2\Domain\Domain;
 use Memsource\API\v2\Language\Language;
+use Memsource\API\v2\User\User;
 use Memsource\API\v3\Auth\Auth;
 use Memsource\API\v3\Project\Project;
 use Memsource\API\v4\TranslationMemory\TranslationMemory;
@@ -58,6 +59,9 @@ class Memsource implements MemsourceInterface {
   /** @var TranslationMemory */
   private $translationMemory;
 
+  /** @var User */
+  private $user;
+
   /**
    * @param string $baseUrl
    * @param Client $client
@@ -75,6 +79,7 @@ class Memsource implements MemsourceInterface {
     $this->project = $this->getProjectService();
     $this->requestOptionsBuilder = $this->getRequestOptionsBuilder();
     $this->translationMemory = $this->getTranslationMemoryService();
+    $this->user = $this->getUserService();
   }
 
   /**
@@ -166,6 +171,13 @@ class Memsource implements MemsourceInterface {
    */
   public function listTranslationMemories($token) {
     return $this->translationMemory->listTranslationMemories($token);
+  }
+
+  /**
+   * @inheritdoc
+   */
+  public function listUsers($token) {
+    return $this->user->listUsers($token);
   }
 
   /**
@@ -303,5 +315,12 @@ class Memsource implements MemsourceInterface {
    */
   protected function getTranslationMemoryService() {
     return new TranslationMemory($this);
+  }
+
+  /**
+   * @return User
+   */
+  protected function getUserService() {
+    return new User($this);
   }
 }
