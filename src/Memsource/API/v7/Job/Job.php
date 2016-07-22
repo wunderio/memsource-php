@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class Job extends BaseApi {
 
-  const PATH_BASE = 'web/api/v7/job/';
+  const PATH_BASE = 'v7/job/';
   const PATH_CREATE = self::PATH_BASE . 'create';
   const PATH_GET_COMPLETED_FILE = self::PATH_BASE . 'getCompletedFile';
   const PATH_GET_JOB = self::PATH_BASE . 'getCompletedFile';

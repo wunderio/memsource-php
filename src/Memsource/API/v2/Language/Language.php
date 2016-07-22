@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class Language extends BaseApi {
 
-  const PATH_BASE = '/web/api/v2/language/';
+  const PATH_BASE = 'v2/language/';
   const PATH_LIST_SUPPORTED_LANGUAGES = self::PATH_BASE . 'listSupportedLangs';
 
   /**

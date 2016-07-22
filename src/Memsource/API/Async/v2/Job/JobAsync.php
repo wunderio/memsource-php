@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\File\File;
 
 class JobAsync extends BaseApi {
 
-  const PATH_BASE = 'web/api/async/v2/job/';
+  const PATH_BASE = 'async/v2/job/';
   const PATH_CREATE = self::PATH_BASE . 'create';
 
   /**

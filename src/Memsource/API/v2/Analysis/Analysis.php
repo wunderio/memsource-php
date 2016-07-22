@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class Analysis extends BaseApi {
 
-  const PATH_BASE = '/web/api/v2/analyse/';
+  const PATH_BASE = 'v2/analyse/';
   const PATH_LIST_BY_PROJECT = self::PATH_BASE . 'listByProject';
 
   /**

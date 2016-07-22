@@ -24,7 +24,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class Memsource implements MemsourceInterface {
 
-  const DEFAULT_BASE_URL = 'https://cloud.memsource.com/';
+  const DEFAULT_BASE_URL = 'https://cloud.memsource.com/web/api/';
 
   /** @var Analysis */
   private $analysis;

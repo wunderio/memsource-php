@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class TranslationMemory extends BaseApi {
 
-  const PATH_BASE = 'web/api/v4/transMemory/';
+  const PATH_BASE = 'v4/transMemory/';
   const PATH_LIST = self::PATH_BASE . 'list';
 
   /**

@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class Domain extends BaseApi {
 
-  const PATH_BASE = '/web/api/v2/domain/';
+  const PATH_BASE = 'v2/domain/';
   const PATH_LIST = self::PATH_BASE . 'list';
 
   /**
