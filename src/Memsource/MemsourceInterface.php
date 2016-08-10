@@ -24,6 +24,13 @@ interface MemsourceInterface {
   public function createJobAsync(Parameters $parameters, File $file);
 
   /**
+   * @param int $template
+   * @param string $name
+   * @return JsonResponse
+   */
+  public function createProjectFromTemplate($template, $name);
+
+  /**
    * @param int $jobPart
    * @return JsonResponse
    */

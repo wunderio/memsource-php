@@ -136,6 +136,13 @@ class Memsource implements MemsourceInterface {
   /**
    * @inheritdoc
    */
+  public function createProjectFromTemplate($template, $name) {
+    return $this->project->createFromTemplate($template, $name);
+  }
+
+  /**
+   * @inheritdoc
+   */
   public function getJob($jobPart) {
     return $this->job->getJob($jobPart);
   }

@@ -7,7 +7,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ProjectTest extends MemsourceTestCase {
 
+  const NAME = 'name';
   const PROJECT = 1;
+  const TEMPLATE = 1;
 
   /** @var Project */
   private $project;
@@ -15,6 +17,15 @@ class ProjectTest extends MemsourceTestCase {
   public function setUp() {
     parent::setUp();
     $this->project = new Project($this->memsource);
+  }
+
+  /**
+   * @test
+   */
+  public function createFromTemplateShouldReturn401UnauthorizedResponseOnInvalidToken() {
+    $response = $this->project->createFromTemplate(self::TEMPLATE, self::NAME);
+
+    $this->assertJsonResponse(Response::HTTP_UNAUTHORIZED, $response);
   }
 
   /**

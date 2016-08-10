@@ -13,6 +13,9 @@ class Parameters {
   /** @var int */
   public $jobPart;
 
+  /** @var string */
+  public $name;
+
   /** @var int */
   public $page;
 
@@ -30,6 +33,9 @@ class Parameters {
 
   /** @var string */
   public $targetLang;
+
+  /** @var int */
+  public $template;
 
   /** @var string */
   public $token;
