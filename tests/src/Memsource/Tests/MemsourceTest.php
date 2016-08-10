@@ -66,4 +66,19 @@ class MemsourceTest extends MemsourceTestCase {
 
     $this->assertInstanceOf(PromiseInterface::class, $response);
   }
+
+  /**
+   * @test
+   */
+  public function shouldThrowAnExceptionOnConstructionWhenRetrievingTheTokenFails() {
+    $this->expectException(\Exception::class);
+
+    new Memsource(
+      self::USER_NAME,
+      self::PASSWORD,
+      NULL,
+      self::MEMSOURCE_TEST_BASE_URL,
+      $this->client->reveal()
+    );
+  }
 }
