@@ -1,5 +1,11 @@
 # Memsource API PHP client
 
+## Installation
+
+`composer require wunder/memsource-php`
+
+## API documentation
+
 See http://wiki.memsource.com/wiki/Memsource_API for API documentation.
 
 ## Usage
