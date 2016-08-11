@@ -323,7 +323,11 @@ class Memsource implements MemsourceInterface {
       $response = $e->getResponse();
     }
 
-    return new JsonResponse($response->getBody(), $response->getStatusCode(), $response->getHeaders(), TRUE);
+    return new JsonResponse(
+      json_decode($response->getBody()->getContents()),
+      $response->getStatusCode(),
+      $response->getHeaders()
+    );
   }
 
   /**
