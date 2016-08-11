@@ -19,10 +19,9 @@ abstract class MemsourceTestCase extends TestCase {
 
   public function setUp() {
     $response = new JsonResponse(
-      '{"errorCode":"AuthUnauthorized","errorDescription":"Unauthorized access."}',
+      json_decode('{"errorCode":"AuthUnauthorized","errorDescription":"Unauthorized access."}'),
       Response::HTTP_UNAUTHORIZED,
-      [],
-      TRUE
+      []
     );
 
     $this->memsource = $this->prophesize(Memsource::class);
