@@ -49,6 +49,12 @@ interface MemsourceInterface {
   public function getProject($project);
 
   /**
+   * @param int $user
+   * @return JsonResponse
+   */
+  public function getUser($user);
+
+  /**
    * @param string $userName
    * @return JsonResponse
    */
