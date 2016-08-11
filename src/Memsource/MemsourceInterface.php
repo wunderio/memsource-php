@@ -93,6 +93,11 @@ interface MemsourceInterface {
   /**
    * @return JsonResponse
    */
+  public function listProjectTemplates();
+
+  /**
+   * @return JsonResponse
+   */
   public function listSupportedLanguages();
 
   /**

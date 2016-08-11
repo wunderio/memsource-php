@@ -11,6 +11,7 @@ use Memsource\API\v2\BusinessUnit\BusinessUnit;
 use Memsource\API\v2\Domain\Domain;
 use Memsource\API\v2\Language\Language;
 use Memsource\API\v2\MachineTranslateSettings\MachineTranslateSettings;
+use Memsource\API\v2\ProjectTemplate\ProjectTemplate;
 use Memsource\API\v2\User\User;
 use Memsource\API\v2\Vendor\Vendor;
 use Memsource\API\v2\WorkflowStep\WorkflowStep;
@@ -59,6 +60,9 @@ class Memsource implements MemsourceInterface {
   /** @var Project */
   private $project;
 
+  /** @var ProjectTemplate */
+  private $projectTemplate;
+
   /** @var RequestOptionsBuilder */
   private $requestOptionsBuilder;
 
@@ -104,6 +108,7 @@ class Memsource implements MemsourceInterface {
     $this->language = $this->getLanguageService();
     $this->machineTranslateSettings = $this->getMachineTranslateSettingsService();
     $this->project = $this->getProjectService();
+    $this->projectTemplate = $this->getProjectTemplateService();
     $this->requestOptionsBuilder = $this->getRequestOptionsBuilder();
     $this->token = empty($token) ? $this->loginAndGetToken($userName, $password) : $token;
     $this->translationMemory = $this->getTranslationMemoryService();
@@ -208,6 +213,13 @@ class Memsource implements MemsourceInterface {
    */
   public function listProjects() {
     return $this->project->listProjects();
+  }
+
+  /**
+   * @inheritdoc
+   */
+  public function listProjectTemplates() {
+    return $this->projectTemplate->listTemplates();
   }
 
   /**
@@ -377,6 +389,13 @@ class Memsource implements MemsourceInterface {
    */
   protected function getProjectService() {
     return new Project($this);
+  }
+
+  /**
+   * @return ProjectTemplate
+   */
+  protected function getProjectTemplateService() {
+    return new ProjectTemplate($this);
   }
 
   /**
