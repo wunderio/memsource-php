@@ -11,6 +11,7 @@ class User extends BaseApi {
   const PATH_BASE = 'v2/user/';
   const PATH_GET = self::PATH_BASE . 'get';
   const PATH_GET_BY_USER_NAME = self::PATH_BASE . 'getByUserName';
+  const PATH_GET_LIMITS = self::PATH_BASE . 'getLimits';
   const PATH_LIST = self::PATH_BASE . 'list';
 
   /**
@@ -29,6 +30,13 @@ class User extends BaseApi {
     $parameters->userName = $userName;
 
     return $this->memsource->post(self::PATH_GET_BY_USER_NAME, $parameters);
+  }
+
+  /**
+   * @return JsonResponse
+   */
+  public function getLimits() {
+    return $this->memsource->post(self::PATH_GET_LIMITS);
   }
 
   /**

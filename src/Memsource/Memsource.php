@@ -183,6 +183,13 @@ class Memsource implements MemsourceInterface {
   /**
    * @inheritdoc
    */
+  public function getUserLimits() {
+    return $this->user->getLimits();
+  }
+
+  /**
+   * @inheritdoc
+   */
   public function listAnalysesByProject($project) {
     return $this->analysis->listByProject($project);
   }

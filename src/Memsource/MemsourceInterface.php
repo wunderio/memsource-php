@@ -61,6 +61,11 @@ interface MemsourceInterface {
   public function getUserByName($userName);
 
   /**
+   * @return JsonResponse
+   */
+  public function getUserLimits();
+
+  /**
    * @param int $project
    * @return JsonResponse
    */
