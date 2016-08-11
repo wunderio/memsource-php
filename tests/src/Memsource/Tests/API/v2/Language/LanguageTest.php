@@ -7,8 +7,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class LanguageTest extends MemsourceTestCase {
 
-  const PROJECT = 1;
-
   /** @var Language */
   private $language;
 

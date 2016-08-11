@@ -4,19 +4,14 @@ namespace Memsource\Tests;
 
 use GuzzleHttp\Promise\PromiseInterface;
 use Memsource\API\Async\v2\Job\JobAsync;
-use Memsource\Model\JobFilter;
 use Memsource\Model\Parameters;
 use Symfony\Component\HttpFoundation\File\File;
 
 class JobAsyncTest extends MemsourceTestCase {
 
-  const ASSIGNED_TO = 1;
   const CALLBACK_URL = 'http://www.example.com/callback';
-  const JOB_PART = 1;
-  const PAGE = 1;
   const PROJECT = 1;
-  const STATUS = JobFilter::STATUS_COMPLETED;
-  const WORKFLOW_LEVEL = 1;
+  const TARGET_LANG = 'ja';
 
   /** @var File */
   private $file;
@@ -34,9 +29,9 @@ class JobAsyncTest extends MemsourceTestCase {
     $this->jobAsync = new JobAsync($this->memsource);
 
     $this->parameters = new Parameters();
-    $this->parameters->project = 1;
-    $this->parameters->targetLang = 'ja';
     $this->parameters->callbackUrl = self::CALLBACK_URL;
+    $this->parameters->project = self::PROJECT;
+    $this->parameters->targetLang = self::TARGET_LANG;
   }
 
   /**

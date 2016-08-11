@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class UserTest extends MemsourceTestCase {
 
-  const PROJECT = 1;
+  const USER_NAME = 'userName';
 
   /** @var User */
   private $user;
@@ -15,6 +15,15 @@ class UserTest extends MemsourceTestCase {
   public function setUp() {
     parent::setUp();
     $this->user = new User($this->memsource);
+  }
+
+  /**
+   * @test
+   */
+  public function getByUserNameShouldReturn401UnauthorizedResponseOnInvalidToken() {
+    $response = $this->user->getByUserName(self::USER_NAME);
+
+    $this->assertJsonResponse(Response::HTTP_UNAUTHORIZED, $response);
   }
 
   /**

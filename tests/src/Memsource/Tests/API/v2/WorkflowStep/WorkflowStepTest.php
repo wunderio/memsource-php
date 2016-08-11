@@ -7,8 +7,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class WorkflowStepTest extends MemsourceTestCase {
 
-  const PROJECT = 1;
-
   /** @var WorkflowStep */
   private $workflowStep;
 

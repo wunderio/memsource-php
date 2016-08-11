@@ -7,8 +7,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class BusinessUnitTest extends MemsourceTestCase {
 
-  const PROJECT = 1;
-
   /** @var BusinessUnit */
   private $businessUnit;
 

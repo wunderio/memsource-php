@@ -7,8 +7,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class DomainTest extends MemsourceTestCase {
 
-  const PROJECT = 1;
-
   /** @var Domain */
   private $domain;
 

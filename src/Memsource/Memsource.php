@@ -169,6 +169,13 @@ class Memsource implements MemsourceInterface {
   /**
    * @inheritdoc
    */
+  public function getUserByName($userName) {
+    return $this->user->getByUserName($userName);
+  }
+
+  /**
+   * @inheritdoc
+   */
   public function listAnalysesByProject($project) {
     return $this->analysis->listByProject($project);
   }

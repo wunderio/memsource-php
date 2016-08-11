@@ -7,8 +7,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class VendorTest extends MemsourceTestCase {
 
-  const PROJECT = 1;
-
   /** @var Vendor */
   private $vendor;
 

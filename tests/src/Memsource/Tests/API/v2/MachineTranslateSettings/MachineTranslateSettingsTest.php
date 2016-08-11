@@ -7,8 +7,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class MachineTranslateSettingsTest extends MemsourceTestCase {
 
-  const PROJECT = 1;
-
   /** @var MachineTranslateSettings */
   private $machineTranslateSettings;
 

@@ -15,6 +15,7 @@ class JobTest extends MemsourceTestCase {
   const PAGE = 1;
   const PROJECT = 1;
   const STATUS = JobFilter::STATUS_COMPLETED;
+  const TARGET_LANG = 'ja';
   const WORKFLOW_LEVEL = 1;
 
   /** @var File */
@@ -33,8 +34,8 @@ class JobTest extends MemsourceTestCase {
     $this->job = new Job($this->memsource);
 
     $this->parameters = new Parameters();
-    $this->parameters->project = 1;
-    $this->parameters->targetLang = 'ja';
+    $this->parameters->project = self::PROJECT;
+    $this->parameters->targetLang = self::TARGET_LANG;
   }
 
   /**
