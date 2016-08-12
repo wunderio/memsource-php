@@ -16,12 +16,22 @@ class Project extends BaseApi {
   /**
    * @param int $template
    * @param string $name
+   * @param string|null $dateDue
+   * @param string|null $note
+   * @param string|null $sourceLang
+   * @param string|null $targetLang
+   * @param int|null $workflowStep
    * @return JsonResponse
    */
-  public function createFromTemplate($template, $name) {
+  public function createFromTemplate($template, $name, $dateDue = NULL, $note = NULL, $sourceLang = NULL, $targetLang = NULL, $workflowStep = NULL) {
     $parameters = new Parameters();
     $parameters->template = $template;
     $parameters->name = $name;
+    $parameters->dateDue = $dateDue;
+    $parameters->note = $note;
+    $parameters->sourceLang = $sourceLang;
+    $parameters->targetLang = $targetLang;
+    $parameters->workflowStep = $workflowStep;
 
     return $this->memsource->post(self::PATH_CREATE_FROM_TEMPLATE, $parameters);
   }

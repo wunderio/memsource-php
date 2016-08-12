@@ -10,11 +10,17 @@ class Parameters {
   /** @var $string */
   public $callbackUrl;
 
+  /** @var string */
+  public $dateDue;
+
   /** @var int */
   public $jobPart;
 
   /** @var string */
   public $name;
+
+  /** @var string */
+  public $note;
 
   /** @var int */
   public $page;
@@ -24,6 +30,9 @@ class Parameters {
 
   /** @var int */
   public $project;
+
+  /** @var string */
+  public $sourceLang;
 
   /**
    * @var string
@@ -48,4 +57,7 @@ class Parameters {
 
   /** @var int */
   public $workflowLevel;
+
+  /** @var int */
+  public $workflowStep;
 }

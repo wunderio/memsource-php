@@ -141,8 +141,8 @@ class Memsource implements MemsourceInterface {
   /**
    * @inheritdoc
    */
-  public function createProjectFromTemplate($template, $name) {
-    return $this->project->createFromTemplate($template, $name);
+  public function createProjectFromTemplate($template, $name, $dateDue = NULL, $note = NULL, $sourceLang = NULL, $targetLang = NULL, $workflowStep = NULL) {
+    return $this->project->createFromTemplate($template, $name, $dateDue, $note, $sourceLang, $targetLang, $workflowStep);
   }
 
   /**
