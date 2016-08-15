@@ -155,8 +155,8 @@ class Memsource implements MemsourceInterface {
   /**
    * @inheritdoc
    */
-  public function getCompletedFile($jobPart) {
-    return $this->job->getCompletedFile($jobPart);
+  public function getCompletedFile($jobPart, $outputPath) {
+    return $this->job->getCompletedFile($jobPart, $outputPath);
   }
 
   /**
@@ -310,12 +310,13 @@ class Memsource implements MemsourceInterface {
    * @param string $path
    * @param Parameters|null $parameters
    * @param File|null $file
+   * @param string|null $outputPath
    * @return JsonResponse
    */
-  public function post($path, Parameters $parameters = NULL, File $file = NULL) {
+  public function post($path, Parameters $parameters = NULL, File $file = NULL, $outputPath = NULL) {
     $parameters = isset($parameters) ? $parameters : new Parameters();
     $parameters->token = $this->token;
-    $options = $this->requestOptionsBuilder->buildPostOptions($parameters, $file);
+    $options = $this->requestOptionsBuilder->buildPostOptions($parameters, $file, $outputPath);
 
     try {
       $response = $this->client->post($this->baseUrl . $path, $options);

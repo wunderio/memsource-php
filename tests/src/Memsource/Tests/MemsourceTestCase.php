@@ -26,6 +26,7 @@ abstract class MemsourceTestCase extends TestCase {
 
     $this->memsource = $this->prophesize(Memsource::class);
     $this->memsource->post(Argument::any(), Argument::any(), Argument::any())->willReturn($response);
+    $this->memsource->post(Argument::any(), Argument::any(), Argument::any(), Argument::any())->willReturn($response);
     $this->memsource->postAsync(Argument::any(), Argument::any(), Argument::any())->willReturn(new Promise());
     $this->memsource = $this->memsource->reveal();
   }

@@ -37,9 +37,10 @@ interface MemsourceInterface {
 
   /**
    * @param int $jobPart
+   * @param string $outputPath
    * @return JsonResponse
    */
-  public function getCompletedFile($jobPart);
+  public function getCompletedFile($jobPart, $outputPath);
 
   /**
    * @param $jobPart

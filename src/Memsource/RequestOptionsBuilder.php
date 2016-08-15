@@ -10,14 +10,19 @@ class RequestOptionsBuilder {
 
   /**
    * @param Parameters $parameters
-   * @param File $file
+   * @param File|null $file
+   * @param string|null $outputPath
    * @return array
    */
-  public function buildPostOptions(Parameters $parameters, File $file = NULL) {
+  public function buildPostOptions(Parameters $parameters, File $file = NULL, $outputPath = NULL) {
     if ($file) {
       $options = $this->buildMultipartPostOptions($parameters, $file);
     } else {
       $options = [RequestOptions::FORM_PARAMS => $parameters];
+    }
+
+    if (!empty($outputPath)) {
+      $options['sink'] = $outputPath;
     }
 
     return $options;

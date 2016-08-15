@@ -12,6 +12,7 @@ class JobTest extends MemsourceTestCase {
 
   const ASSIGNED_TO = 1;
   const JOB_PART = 1;
+  const OUTPUT_PATH = '';
   const PAGE = 1;
   const PROJECT = 1;
   const STATUS = JobFilter::STATUS_COMPLETED;
@@ -51,7 +52,7 @@ class JobTest extends MemsourceTestCase {
    * @test
    */
   public function getCompletedFileShouldReturn401UnauthorizedResponseOnInvalidToken() {
-    $response = $this->job->getCompletedFile(self::JOB_PART);
+    $response = $this->job->getCompletedFile(self::JOB_PART, self::OUTPUT_PATH);
 
     $this->assertJsonResponse(Response::HTTP_UNAUTHORIZED, $response);
   }

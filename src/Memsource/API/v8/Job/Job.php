@@ -27,13 +27,14 @@ class Job extends BaseApi {
 
   /**
    * @param int $jobPart
+   * @param string $outputPath
    * @return JsonResponse
    */
-  public function getCompletedFile($jobPart) {
+  public function getCompletedFile($jobPart, $outputPath) {
     $parameters = new Parameters();
     $parameters->jobPart = $jobPart;
 
-    return $this->memsource->post(self::PATH_GET_COMPLETED_FILE, $parameters);
+    return $this->memsource->post(self::PATH_GET_COMPLETED_FILE, $parameters, NULL, $outputPath);
   }
 
   /**
