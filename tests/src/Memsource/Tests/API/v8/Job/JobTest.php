@@ -2,7 +2,7 @@
 
 namespace Memsource\Tests;
 
-use Memsource\API\v7\Job\Job;
+use Memsource\API\v8\Job\Job;
 use Memsource\Model\JobFilter;
 use Memsource\Model\Parameters;
 use Symfony\Component\HttpFoundation\File\File;

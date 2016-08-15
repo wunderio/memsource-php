@@ -1,6 +1,6 @@
 <?php
 
-namespace Memsource\API\v7\Job;
+namespace Memsource\API\v8\Job;
 
 use Memsource\API\BaseApi;
 use Memsource\Model\Parameters;
@@ -9,10 +9,10 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class Job extends BaseApi {
 
-  const PATH_BASE = 'v7/job/';
+  const PATH_BASE = 'v8/job/';
   const PATH_CREATE = self::PATH_BASE . 'create';
   const PATH_GET_COMPLETED_FILE = self::PATH_BASE . 'getCompletedFile';
-  const PATH_GET_JOB = self::PATH_BASE . 'getCompletedFile';
+  const PATH_GET_JOB = self::PATH_BASE . 'get';
   const PATH_LIST_BY_PROJECT = self::PATH_BASE . 'listByProject';
   const PATH_LIST_JOBS = self::PATH_BASE . 'list';
 

@@ -18,7 +18,7 @@ use Memsource\API\v2\WorkflowStep\WorkflowStep;
 use Memsource\API\v3\Auth\Auth;
 use Memsource\API\v3\Project\Project;
 use Memsource\API\v4\TranslationMemory\TranslationMemory;
-use Memsource\API\v7\Job\Job;
+use Memsource\API\v8\Job\Job;
 use Memsource\Model\Parameters;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\JsonResponse;
