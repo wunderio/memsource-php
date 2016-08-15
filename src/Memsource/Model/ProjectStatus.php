@@ -4,7 +4,7 @@ namespace Memsource\Model;
 
 class ProjectStatus {
 
-  const STATUS_ASSIGNED = 'Assigned';
-  const STATUS_COMPLETED = 'Completed';
-  const STATUS_NEW = 'New';
+  const STATUS_ASSIGNED = 'ASSIGNED';
+  const STATUS_COMPLETED = 'COMPLETED';
+  const STATUS_NEW = 'NEW';
 }
