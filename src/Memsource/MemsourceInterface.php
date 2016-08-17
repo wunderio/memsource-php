@@ -36,6 +36,12 @@ interface MemsourceInterface {
   public function createProjectFromTemplate($template, $name, $dateDue = NULL, $note = NULL, $sourceLang = NULL, $targetLang = NULL, $workflowStep = NULL);
 
   /**
+   * @param int $project
+   * @return JsonResponse
+   */
+  public function deleteProject($project);
+
+  /**
    * @param int $jobPart
    * @param string $outputPath
    * @return JsonResponse

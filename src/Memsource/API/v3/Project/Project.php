@@ -10,6 +10,7 @@ class Project extends BaseApi {
 
   const PATH_BASE = 'v3/project/';
   const PATH_CREATE_FROM_TEMPLATE = self::PATH_BASE . 'createFromTemplate';
+  const PATH_DELETE = self::PATH_BASE . 'delete';
   const PATH_GET = self::PATH_BASE . 'get';
   const PATH_LIST = self::PATH_BASE . 'list';
 
@@ -34,6 +35,17 @@ class Project extends BaseApi {
     $parameters->workflowStep = $workflowStep;
 
     return $this->memsource->post(self::PATH_CREATE_FROM_TEMPLATE, $parameters);
+  }
+
+  /**
+   * @param int $project
+   * @return JsonResponse
+   */
+  public function delete($project) {
+    $parameters = new Parameters();
+    $parameters->project = $project;
+
+    return $this->memsource->post(self::PATH_DELETE, $parameters);
   }
 
   /**

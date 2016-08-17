@@ -148,6 +148,13 @@ class Memsource implements MemsourceInterface {
   /**
    * @inheritdoc
    */
+  public function deleteProject($project) {
+    $this->project->delete($project);
+  }
+
+  /**
+   * @inheritdoc
+   */
   public function getJob($jobPart) {
     return $this->job->getJob($jobPart);
   }

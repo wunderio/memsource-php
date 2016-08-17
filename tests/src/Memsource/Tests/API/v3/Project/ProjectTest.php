@@ -31,6 +31,15 @@ class ProjectTest extends MemsourceTestCase {
   /**
    * @test
    */
+  public function deleteShouldReturn401UnauthorizedResponseOnInvalidToken() {
+    $response = $this->project->delete(self::PROJECT);
+
+    $this->assertJsonResponse(Response::HTTP_UNAUTHORIZED, $response);
+  }
+
+  /**
+   * @test
+   */
   public function getProjectShouldReturn401UnauthorizedResponseOnInvalidToken() {
     $response = $this->project->getProject(self::PROJECT);
 
