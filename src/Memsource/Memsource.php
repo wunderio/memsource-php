@@ -9,6 +9,7 @@ use Memsource\API\Async\v2\Job\JobAsync;
 use Memsource\API\v2\Analysis\Analysis;
 use Memsource\API\v2\BusinessUnit\BusinessUnit;
 use Memsource\API\v2\Domain\Domain;
+use Memsource\API\v2\EmailTemplate\EmailTemplate;
 use Memsource\API\v2\Language\Language;
 use Memsource\API\v2\MachineTranslateSettings\MachineTranslateSettings;
 use Memsource\API\v2\ProjectTemplate\ProjectTemplate;
@@ -44,6 +45,9 @@ class Memsource implements MemsourceInterface {
 
   /** @var Domain */
   private $domain;
+
+  /** @var EmailTemplate */
+  private $emailTemplate;
 
   /** @var Job */
   private $job;
@@ -103,6 +107,7 @@ class Memsource implements MemsourceInterface {
     $this->businessUnit = $this->getBusinessUnitService();
     $this->client = isset($client) ? $client : $this->getHttpClient();
     $this->domain = $this->getDomainService();
+    $this->emailTemplate = $this->getEmailTemplateService();
     $this->job = $this->getJobService();
     $this->jobAsync = $this->getJobAsyncService();
     $this->language = $this->getLanguageService();
@@ -150,6 +155,13 @@ class Memsource implements MemsourceInterface {
    */
   public function deleteProject($project) {
     $this->project->delete($project);
+  }
+
+  /**
+   * @inheritdoc
+   */
+  public function getEmailTemplate($template) {
+    return $this->emailTemplate->getEmailTemplate($template);
   }
 
   /**
@@ -213,6 +225,13 @@ class Memsource implements MemsourceInterface {
    */
   public function listDomains() {
     return $this->domain->listDomains();
+  }
+
+  /**
+   * @inheritdoc
+   */
+  public function listEmailTemplates($type = NULL) {
+    return $this->emailTemplate->listEmailTemplates($type);
   }
 
   /**
@@ -378,6 +397,13 @@ class Memsource implements MemsourceInterface {
    */
   protected function getDomainService() {
     return new Domain($this);
+  }
+
+  /**
+   * @return EmailTemplate
+   */
+  protected function getEmailTemplateService() {
+    return new EmailTemplate($this);
   }
 
   /**

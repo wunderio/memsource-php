@@ -49,6 +49,12 @@ interface MemsourceInterface {
   public function getCompletedFile($jobPart, $outputPath);
 
   /**
+   * @param int $template
+   * @return JsonResponse
+   */
+  public function getEmailTemplate($template);
+
+  /**
    * @param $jobPart
    * @return JsonResponse
    */
@@ -92,6 +98,12 @@ interface MemsourceInterface {
    * @return JsonResponse
    */
   public function listDomains();
+
+  /**
+   * @param string|null $type See EmailTemplateType.
+   * @return JsonResponse
+   */
+  public function listEmailTemplates($type = NULL);
 
   /**
    * @param int $jobPart

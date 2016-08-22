@@ -49,6 +49,9 @@ class Parameters {
   /** @var string */
   public $token;
 
+  /** @var string */
+  public $type;
+
   /** @var int */
   public $user;
 
