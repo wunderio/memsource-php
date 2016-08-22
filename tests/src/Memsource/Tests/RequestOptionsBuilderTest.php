@@ -10,6 +10,8 @@ use Symfony\Component\HttpFoundation\File\File;
 
 class RequestOptionsBuilderTest extends TestCase {
 
+  const OUTPUT_PATH = '/output/path';
+
   /** @var File */
   private $file;
 
@@ -41,5 +43,14 @@ class RequestOptionsBuilderTest extends TestCase {
     $options = $this->requestOptionsBuilder->buildPostOptions($this->parameters, $this->file);
 
     $this->assertArrayHasKey(RequestOptions::MULTIPART, $options);
+  }
+
+  /**
+   * @test
+   */
+  public function buildPostOptionsShouldUseSinkOptionWhenOutputPathIsGiven() {
+    $options = $this->requestOptionsBuilder->buildPostOptions($this->parameters, $this->file, self::OUTPUT_PATH);
+
+    $this->assertArrayHasKey(RequestOptions::SINK, $options);
   }
 }
