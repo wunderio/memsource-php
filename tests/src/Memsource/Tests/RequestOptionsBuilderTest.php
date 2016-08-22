@@ -34,6 +34,7 @@ class RequestOptionsBuilderTest extends TestCase {
     $options = $this->requestOptionsBuilder->buildPostOptions($this->parameters);
 
     $this->assertArrayHasKey(RequestOptions::FORM_PARAMS, $options);
+    $this->assertEquals($this->parameters, $options[RequestOptions::FORM_PARAMS]);
   }
 
   /**
@@ -43,6 +44,16 @@ class RequestOptionsBuilderTest extends TestCase {
     $options = $this->requestOptionsBuilder->buildPostOptions($this->parameters, $this->file);
 
     $this->assertArrayHasKey(RequestOptions::MULTIPART, $options);
+
+    $multipartOptions = [];
+
+    foreach ($options[RequestOptions::MULTIPART] as $option) {
+      $multipartOptions[$option['name']] = $option['contents'];
+    }
+
+    foreach ($this->parameters as $parameter => $value) {
+      $this->assertEquals($multipartOptions[$parameter], $value);
+    }
   }
 
   /**
