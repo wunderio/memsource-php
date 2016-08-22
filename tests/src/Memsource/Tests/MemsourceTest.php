@@ -3,11 +3,13 @@
 namespace Memsource\Tests;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Promise\Promise;
 use GuzzleHttp\Promise\PromiseInterface;
 use Memsource\Memsource;
 use Memsource\Model\Parameters;
 use Prophecy\Argument;
+use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,10 +23,14 @@ class MemsourceTest extends MemsourceTestCase {
   /** @var Client */
   private $client;
 
+  /** @var RequestInterface */
+  private $request;
+
   /** @var ResponseInterface */
   private $response;
 
   public function setUp() {
+    $this->request = new \GuzzleHttp\Psr7\Request('POST', self::PATH, [], 'body');
     $this->response = new \GuzzleHttp\Psr7\Response(Response::HTTP_UNAUTHORIZED);
 
     $this->client = $this->prophesize(Client::class);
@@ -53,6 +59,18 @@ class MemsourceTest extends MemsourceTestCase {
    * @test
    */
   public function postShouldReturnJsonResponse() {
+    $response = $this->memsource->post(self::PATH, new Parameters());
+
+    $this->assertInstanceOf(JsonResponse::class, $response);
+  }
+
+  /**
+   * @test
+   */
+  public function postShouldHandleClientExceptionGracefully() {
+    $exception = new ClientException('message', $this->request, $this->response);
+    $this->client->post(Argument::any(), Argument::any())->willThrow($exception);
+
     $response = $this->memsource->post(self::PATH, new Parameters());
 
     $this->assertInstanceOf(JsonResponse::class, $response);
