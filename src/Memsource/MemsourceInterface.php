@@ -26,7 +26,7 @@ interface MemsourceInterface {
   /**
    * @param int $template
    * @param string $name
-   * @param string|null $dateDue
+   * @param int|null $dateDue Unix timestamp in UTC time. Will be automatically converted to yyyy-MM-dd HH:mm format.
    * @param string|null $note
    * @param string|null $sourceLang
    * @param string|null $targetLang

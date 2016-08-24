@@ -4,6 +4,8 @@ namespace Memsource\Model;
 
 class Parameters {
 
+  const DATE_TIME_FORMAT = 'Y-m-d H:i';
+
   /** @var int */
   public $assignedTo;
 
@@ -63,4 +65,21 @@ class Parameters {
 
   /** @var int */
   public $workflowStep;
+
+  /**
+   * @param int|null $dateDue Unix timestamp in UTC time.
+   * @return null|string Date time string in yyyy-MM-dd HH:mm format.
+   * @throws \Exception If the value is not a valid integer or null.
+   */
+  public function convertToDateTimeFormat($dateDue) {
+    if (isset($dateDue)) {
+      if (is_int($dateDue)) {
+        $dateDue = date(Parameters::DATE_TIME_FORMAT, $dateDue);
+      } else {
+        throw new \Exception("Invalid date due value: $dateDue");
+      }
+    }
+
+    return $dateDue;
+  }
 }
