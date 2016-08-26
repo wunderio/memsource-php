@@ -67,6 +67,12 @@ interface MemsourceInterface {
   public function getProject($project);
 
   /**
+   * @param int $termBase
+   * @return JsonResponse
+   */
+  public function getTermBase($termBase);
+
+  /**
    * @param int $user
    * @return JsonResponse
    */
@@ -140,6 +146,11 @@ interface MemsourceInterface {
    * @return JsonResponse
    */
   public function listSupportedLanguages();
+
+  /**
+   * @return JsonResponse
+   */
+  public function listTermBases();
 
   /**
    * @return JsonResponse

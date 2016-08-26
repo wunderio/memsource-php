@@ -13,6 +13,7 @@ use Memsource\API\v2\EmailTemplate\EmailTemplate;
 use Memsource\API\v2\Language\Language;
 use Memsource\API\v2\MachineTranslateSettings\MachineTranslateSettings;
 use Memsource\API\v2\ProjectTemplate\ProjectTemplate;
+use Memsource\API\v2\TermBase\TermBase;
 use Memsource\API\v2\User\User;
 use Memsource\API\v2\Vendor\Vendor;
 use Memsource\API\v2\WorkflowStep\WorkflowStep;
@@ -70,6 +71,9 @@ class Memsource implements MemsourceInterface {
   /** @var RequestOptionsBuilder */
   private $requestOptionsBuilder;
 
+  /** @var TermBase */
+  private $termBase;
+
   /** @var string */
   private $token;
 
@@ -115,6 +119,7 @@ class Memsource implements MemsourceInterface {
     $this->project = $this->getProjectService();
     $this->projectTemplate = $this->getProjectTemplateService();
     $this->requestOptionsBuilder = $this->getRequestOptionsBuilder();
+    $this->termBase = $this->getTermBaseService();
     $this->token = empty($token) ? $this->loginAndGetToken($userName, $password) : $token;
     $this->translationMemory = $this->getTranslationMemoryService();
     $this->user = $this->getUserService();
@@ -183,6 +188,13 @@ class Memsource implements MemsourceInterface {
    */
   public function getProject($project) {
     return $this->project->getProject($project);
+  }
+
+  /**
+   * @inheritdoc
+   */
+  public function getTermBase($termBase) {
+    return $this->termBase->getTermBase($termBase);
   }
 
   /**
@@ -274,6 +286,13 @@ class Memsource implements MemsourceInterface {
    */
   public function listSupportedLanguages() {
     return $this->language->listSupportedLanguages();
+  }
+
+  /**
+   * @inheritdoc
+   */
+  public function listTermBases() {
+    return $this->termBase->listTermBases();
   }
 
   /**
@@ -462,6 +481,13 @@ class Memsource implements MemsourceInterface {
    */
   protected function getRequestOptionsBuilder() {
     return new RequestOptionsBuilder();
+  }
+
+  /**
+   * @return TermBase
+   */
+  protected function getTermBaseService() {
+    return new TermBase($this);
   }
 
   /**

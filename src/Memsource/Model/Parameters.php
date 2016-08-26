@@ -48,6 +48,9 @@ class Parameters {
   /** @var int */
   public $template;
 
+  /** @var int */
+  public $termBase;
+
   /** @var string */
   public $token;
 
