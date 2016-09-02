@@ -16,6 +16,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 class MemsourceTest extends MemsourceTestCase {
 
+  const RESPONSE_BODY = '{"key":"value"}';
+  const RESPONSE_HEADERS = ['header' => 'value'];
+  const RESPONSE_STATUS = Response::HTTP_UNAUTHORIZED;
   const PASSWORD = 'password';
   const PATH = 'http://www.example.com/path';
   const USER_NAME = 'userName';
@@ -31,7 +34,7 @@ class MemsourceTest extends MemsourceTestCase {
 
   public function setUp() {
     $this->request = new \GuzzleHttp\Psr7\Request('POST', self::PATH, [], 'body');
-    $this->response = new \GuzzleHttp\Psr7\Response(Response::HTTP_UNAUTHORIZED);
+    $this->response = new \GuzzleHttp\Psr7\Response(self::RESPONSE_STATUS, self::RESPONSE_HEADERS, self::RESPONSE_BODY);
 
     $this->client = $this->prophesize(Client::class);
     $this->client->post(Argument::any(), Argument::any())->willReturn($this->response);
@@ -62,6 +65,36 @@ class MemsourceTest extends MemsourceTestCase {
     $response = $this->memsource->post(self::PATH, new Parameters());
 
     $this->assertInstanceOf(JsonResponse::class, $response);
+  }
+
+  /**
+   * @test
+   */
+  public function postResponseShouldIncludeStatusCode() {
+    $response = $this->memsource->post(self::PATH, new Parameters());
+
+    $this->assertEquals(self::RESPONSE_STATUS, $response->getStatusCode());
+  }
+
+  /**
+   * @test
+   */
+  public function postResponseShouldIncludeHeaders() {
+    $response = $this->memsource->post(self::PATH, new Parameters());
+    $expectedKey = array_keys(self::RESPONSE_HEADERS)[0];
+    $expectedValue = array_values(self::RESPONSE_HEADERS)[0];
+
+    $this->assertArrayHasKey($expectedKey, $response->headers->all());
+    $this->assertEquals($expectedValue, $response->headers->all()[$expectedKey][0]);
+  }
+
+  /**
+   * @test
+   */
+  public function postResponseShouldIncludeBody() {
+    $response = $this->memsource->post(self::PATH, new Parameters());
+
+    $this->assertEquals(self::RESPONSE_BODY, $response->getContent());
   }
 
   /**
