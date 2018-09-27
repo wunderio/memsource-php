@@ -15,6 +15,9 @@ class Parameters {
   /** @var string */
   public $dateDue;
 
+  /** @var string */
+  public $due; // This is the same as dateDue, but for some reason in the job context is just "due"
+
   /** @var int */
   public $jobPart;
 
